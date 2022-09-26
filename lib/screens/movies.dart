@@ -7,46 +7,50 @@ class MoviesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: 10,
-      itemBuilder: (context, index, realIndex) => Container(
-          padding: EdgeInsets.all(20),
-          child: GestureDetector(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder:(context) =>  CinemasScreen())),
-            child: Card(
-              elevation: 20,
-              child: Stack(
-
-                alignment: AlignmentDirectional.bottomCenter,
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.network(
-                    'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',
-                    fit: BoxFit.fill,
-                  ),
-                  Container(
-                    width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 6,horizontal: 5),
-                    color: Colors.grey[300]!.withOpacity(.6),
-                    child: Text(
+    return SafeArea(
+      child: CarouselSlider.builder(
+        itemCount: 10,
+        itemBuilder: (context, index, realIndex) => Container(
+            padding: EdgeInsets.all(20),
+            child: GestureDetector(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder:(context) =>  CinemasScreen())),
+              child: Card(
+                
+                elevation: 20,
+                child: Stack(
+    
+                  alignment: AlignmentDirectional.bottomCenter,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.network(
                       
-                      'Movie Name',
-                      style: Theme.of(context).textTheme.headline1,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                      'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',
+                      fit: BoxFit.fill,
                     ),
-                  )
-                ],
+                    Container(
+                      width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: 6,horizontal: 5),
+                      color: Colors.grey[300]!.withOpacity(.6),
+                      child: Text(
+                        
+                        'Movie Name',
+                        style: Theme.of(context).textTheme.headline1,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          )),
-      options: CarouselOptions(
-          height: double.infinity,
-          scrollPhysics: const BouncingScrollPhysics(),
-          enableInfiniteScroll: false,
-          enlargeCenterPage: true,
-          scrollDirection: Axis.vertical),
+            )),
+        options: CarouselOptions(
+            height: double.infinity,
+            scrollPhysics: const BouncingScrollPhysics(),
+            enableInfiniteScroll: false,
+            enlargeCenterPage: true,
+            scrollDirection: Axis.vertical),
+      ),
     );
   }
 }
