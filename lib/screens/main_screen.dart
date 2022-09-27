@@ -37,7 +37,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Home'),),
+        appBar: AppBar(
+          title: Text('Home'),
+        ),
         body: ConditionalBuilder(
           condition: movies_list != null,
           fallback: (context) =>
@@ -48,10 +50,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 18,
-                      top: 18
-                    ),
+                    padding: const EdgeInsets.only(left: 18, top: 18),
                     child: Text(
                       'Now showing',
                       style: Theme.of(context).textTheme.headline1,
@@ -60,14 +59,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   SizedBox(
                     height: 300,
                     child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: movies_list!.length,
-                      shrinkWrap: true,
-                      itemExtent: 200,
-                      itemBuilder: (context, index) => 
-                      movieBuilder(context, movies_list![index])
-                    ),
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: movies_list!.length,
+                        shrinkWrap: true,
+                        itemExtent: 200,
+                        itemBuilder: (context, index) =>
+                            movieBuilder(context, movies_list![index])),
                   ),
                 ],
               ),
@@ -76,29 +74,29 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         ));
   }
 }
-             // TabBar(
-              //   controller: _tabController,
-              //   labelColor: Colors.blue,
-              //   unselectedLabelColor: Colors.grey,
-              //   labelStyle: Theme.of(context).textTheme.bodyText1,
-              //   indicatorSize: TabBarIndicatorSize.label,
-              //   tabs: const [
-              //     Tab(
-              //       text: 'Cinemas',
-              //     ),
-              //     Tab(
-              //       text: 'Movies',
-              //     ),
-              //   ],
-              // ),
-              //  Container(
-              //   height: MediaQuery.of(context).size.height,
-              //    child: TabBarView(
+// TabBar(
+//   controller: _tabController,
+//   labelColor: Colors.blue,
+//   unselectedLabelColor: Colors.grey,
+//   labelStyle: Theme.of(context).textTheme.bodyText1,
+//   indicatorSize: TabBarIndicatorSize.label,
+//   tabs: const [
+//     Tab(
+//       text: 'Cinemas',
+//     ),
+//     Tab(
+//       text: 'Movies',
+//     ),
+//   ],
+// ),
+//  Container(
+//   height: MediaQuery.of(context).size.height,
+//    child: TabBarView(
 
-              //      controller: _tabController,
-              //      children:const [
-              //        CinemasScreen(),
-              //        MoviesScreen()
-              //      ],
-              //    ),
-              //  ),
+//      controller: _tabController,
+//      children:const [
+//        CinemasScreen(),
+//        MoviesScreen()
+//      ],
+//    ),
+//  ),

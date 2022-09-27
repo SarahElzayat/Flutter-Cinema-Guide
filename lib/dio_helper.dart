@@ -11,7 +11,6 @@ class DioHelper {
         baseUrl: BASE_URL,
         receiveDataWhenStatusError: true,
         headers: {'Content-Type': 'application/json; charset=utf-8'},
-        
       ),
     );
   }
@@ -25,13 +24,11 @@ class DioHelper {
     return await dio.post(path, data: data, queryParameters: query);
   }
 
-
   static Future<Response> getData(
       {Map<String, dynamic>? query,
       required String path,
       String? token,
       String? baseUrl}) async {
-
     if (baseUrl != null) {
       dio.options.baseUrl = baseUrl;
       print('url changed');

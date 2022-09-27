@@ -11,7 +11,11 @@ part 'app_state.dart';
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitial());
   int currentIndex = 0;
-  List<Widget> bottomNavBarItems =  [MainScreen(),SearchScreen(),SearchScreen()];
+  List<Widget> bottomNavBarItems = [
+    MainScreen(),
+    SearchScreen(),
+    SearchScreen()
+  ];
 
   static AppCubit get(context) => BlocProvider.of(context);
 

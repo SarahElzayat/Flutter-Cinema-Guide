@@ -8,7 +8,7 @@ Widget movieBuilder(context, item) => InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  MoviesScreen(movie: item),
+            builder: (context) => MoviesScreen(movie: item),
           )),
       child: Container(
         margin: const EdgeInsets.all(15),
@@ -23,9 +23,7 @@ Widget movieBuilder(context, item) => InkWell(
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-
           children: [
-            
             ClipRect(
                 child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 5, sigmaY: 2),

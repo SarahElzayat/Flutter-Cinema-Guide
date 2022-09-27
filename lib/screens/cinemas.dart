@@ -5,8 +5,10 @@ class CinemasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('cinema',style: TextStyle(color: Colors.black),)
-)
-    ;
+    return Center(
+        child: Text(
+      'cinema',
+      style: TextStyle(color: Colors.black),
+    ));
   }
 }

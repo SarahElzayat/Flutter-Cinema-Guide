@@ -40,6 +40,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  flutter_rating_bar: ^4.0.1
   font_awesome_flutter: ^10.2.1
   google_fonts: ^3.0.1
   google_nav_bar: ^5.0.6
@@ -47,6 +48,7 @@ dependencies:
   ionicons: ^0.2.1
   line_icons: ^2.0.1
   material_color_generator: ^1.1.0
+  multi_select_flutter: ^4.1.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

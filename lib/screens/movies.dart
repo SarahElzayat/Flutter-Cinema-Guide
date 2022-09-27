@@ -82,12 +82,9 @@ class MoviesScreen extends StatelessWidget {
                         children: List.generate(
                             movie['cinema'].length,
                             (index) => MaterialButton(
-
                                 onPressed: () {},
                                 child: Text(
                                     movie['cinema'][index]['cinema_name']))))
-
-                  
                   ],
                 ),
               ),
