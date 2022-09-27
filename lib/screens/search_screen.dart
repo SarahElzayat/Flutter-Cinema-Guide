@@ -306,7 +306,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 Icon(
                                   Icons.star_rounded,
                                   color: Colors.amber[700],
-                                  size: 60,
+                                  size: 50,
                                 ),
                                 Text(
                                   movie_obj.movieRating.toString(),
