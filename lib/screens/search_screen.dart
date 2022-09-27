@@ -29,6 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
     'Horror',
     'Music',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,6 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                             child: MultiSelectBottomSheetField(
                               initialChildSize: 0.4,
+                              backgroundColor: Colors.grey[700],
                               searchable: true,
                               buttonText: Text("Choose Genres",
                                   style: Theme.of(context).textTheme.bodyText1),
@@ -148,9 +150,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 print(values);
                               },
                               chipDisplay: MultiSelectChipDisplay(
-                                onTap: (value) {
-                                  setState(() {});
-                                },
+                                // the displayed chips after selection
+                                onTap: (value) {},
                               ),
                             ),
                           ),
@@ -195,52 +196,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   itemCount: 20,
                   itemBuilder: (context, index) {
-                    // return ListTile(
-                    //   textColor: Colors.white,
-                    //   leading: Container(
-                    //     width: 60,
-                    //     child: Image(
-                    //       image: NetworkImage(movie_obj.movieImage ?? ''),
-                    //     ),
-                    //   ),
-                    //   tileColor: Colors.black26,
-                    //   contentPadding: const EdgeInsets.all(5),
-                    //   shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(10),
-                    //   ),
-                    //   title: Padding(
-                    //     padding: const EdgeInsets.only(bottom: 5.0),
-                    //     child: Text(movie_obj.movieTitle ?? ''),
-                    //   ),
-                    //   subtitle: Text(
-                    //     movie_obj.movieDescription ?? '',
-                    //     maxLines: 4,
-                    //     overflow: TextOverflow.ellipsis,
-                    //     style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                    //           color: Colors.white.withOpacity(.7),
-                    //         ),
-                    //   ),
-                    //   trailing: Stack(
-                    //     alignment: Alignment.center,
-                    //     children: [
-                    //       const Icon(
-                    //         Icons.star,
-                    //         color: Colors.amber,
-                    //         size: 50,
-                    //       ),
-                    //       Text(
-                    //         movie_obj.movieRating.toString(),
-                    //         style: Theme.of(context)
-                    //             .textTheme
-                    //             .subtitle2!
-                    //             .copyWith(color: Colors.white),
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   isThreeLine: true,
-                    //   onTap: () {},
-                    // );
-
                     return Card(
                       color: Colors.black26,
                       clipBehavior: Clip.antiAlias,
@@ -300,8 +255,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           Expanded(
                             flex: 6,
-                            child: Stack(
-                              alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.star_rounded,
