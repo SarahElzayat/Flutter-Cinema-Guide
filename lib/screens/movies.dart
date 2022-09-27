@@ -1,55 +1,99 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cinema_app/screens/cinemas.dart';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class MoviesScreen extends StatelessWidget {
-  const MoviesScreen({super.key});
+  const MoviesScreen({super.key, this.movie});
+  final movie;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: CarouselSlider.builder(
-        itemCount: 10,
-        itemBuilder: (context, index, realIndex) => Container(
-            padding: EdgeInsets.all(20),
-            child: GestureDetector(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder:(context) =>  CinemasScreen())),
-              child: Card(
-                
-                elevation: 20,
-                child: Stack(
-    
-                  alignment: AlignmentDirectional.bottomCenter,
-                  // mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage(movie['movie_image']), fit: BoxFit.fill),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            // physics: NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      // Colors.transparent,
+                      Colors.transparent,
+                      Colors.black,
+                    ],
+                  ),
+                  color: Colors.black //.withOpacity(.5),
+                  ),
+              // margin: EdgeInsets.only( bottom: 20),
+              padding: const EdgeInsets.only(
+                  // bottom: 20,
+                  left: 10,
+                  right: 10),
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.network(
-                      
-                      'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',
-                      fit: BoxFit.fill,
+                    // Spacer(),
+                    Text(
+                      movie['movie_title'],
+                      style: Theme.of(context).textTheme.headline3,
                     ),
-                    Container(
-                      width: double.infinity,
-                    padding: EdgeInsets.symmetric(vertical: 6,horizontal: 5),
-                      color: Colors.grey[300]!.withOpacity(.6),
-                      child: Text(
-                        
-                        'Movie Name',
-                        style: Theme.of(context).textTheme.headline1,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
+
+                    Row(
+                      textBaseline: TextBaseline.alphabetic,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.star_rate_rounded,
+                          color: Colors.amber[400],
+                          size: 35,
+                        ),
+                        Text(
+                          movie['movie_rating'].toString(),
+                          softWrap: false,
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                      ],
+                    ),
+                    //TODO
+                    //add genres
+
+                    Text(
+                      movie['movie_description'],
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Wrap(
+                        children: List.generate(
+                            movie['cinema'].length,
+                            (index) => MaterialButton(
+
+                                onPressed: () {},
+                                child: Text(
+                                    movie['cinema'][index]['cinema_name']))))
+
+                  
                   ],
                 ),
               ),
-            )),
-        options: CarouselOptions(
-            height: double.infinity,
-            scrollPhysics: const BouncingScrollPhysics(),
-            enableInfiniteScroll: false,
-            enlargeCenterPage: true,
-            scrollDirection: Axis.vertical),
+            ),
+          ),
+        ),
       ),
     );
   }

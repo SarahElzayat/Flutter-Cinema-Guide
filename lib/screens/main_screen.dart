@@ -1,11 +1,14 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'dart:ui';
+
+import 'package:blur/blur.dart';
+import 'package:cinema_app/components/components.dart';
 import 'package:cinema_app/constants/endpoints.dart';
 import 'package:cinema_app/dio_helper.dart';
-import 'package:cinema_app/screens/cinemas.dart';
-import 'package:cinema_app/screens/movies.dart';
-import 'package:dio/dio.dart';
+
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -15,28 +18,65 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
-  late TabController _tabController;
-  late final movies_list;
+  // late TabController _tabController;
+  List? movies_list;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    DioHelper.getData( path: MOVIES).then((value) {
-      movies_list = value.data;
-      print(movies_list.toString());
+    // movies_list = null;
+    // _tabController = TabController(length: 2, vsync: this);
+    DioHelper.getData(path: MOVIES).then((value) {
+      setState(() {
+        movies_list = value.data;
+      });
+      print(movies_list);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // TabBar(
+        appBar: AppBar(title: Text('Home'),),
+        body: ConditionalBuilder(
+          condition: movies_list != null,
+          fallback: (context) =>
+              const Center(child: CircularProgressIndicator()),
+          builder: (context) => SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 18,
+                      top: 18
+                    ),
+                    child: Text(
+                      'Now showing',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 300,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: movies_list!.length,
+                      shrinkWrap: true,
+                      itemExtent: 200,
+                      itemBuilder: (context, index) => 
+                      movieBuilder(context, movies_list![index])
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ));
+  }
+}
+             // TabBar(
               //   controller: _tabController,
               //   labelColor: Colors.blue,
               //   unselectedLabelColor: Colors.grey,
@@ -62,17 +102,3 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               //      ],
               //    ),
               //  ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Now showing',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

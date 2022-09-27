@@ -22,13 +22,20 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white, size: 27),
         textTheme: TextTheme(
           headline1: GoogleFonts.roboto(
-              color: Colors.white
-            ,
+              color: Colors.white,
               // backgroundColor: Colors.black87,
               fontSize: 25),
+          //headline2 for movies names
+          headline2: GoogleFonts.roboto(
+              color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17),
+          headline3: GoogleFonts.roboto(
+              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 24),
+          bodyText1: GoogleFonts.roboto(
+              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
         ),
-        primarySwatch: generateMaterialColor(color: 
-        Colors.blue,)
+        primarySwatch: generateMaterialColor(
+          color: Color.fromARGB(255, 113, 34, 28),
+        ),
       ),
       home: const HomeScreen(),
     );
