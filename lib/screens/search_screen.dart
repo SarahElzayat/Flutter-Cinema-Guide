@@ -195,48 +195,134 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   itemCount: 20,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      textColor: Colors.white,
-                      leading: Image(
-                        image: NetworkImage(movie_obj.movieImage ?? ''),
-                        fit: BoxFit.cover,
-                      ),
-                      tileColor: Colors.black26,
-                      contentPadding: const EdgeInsets.all(5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      title: Padding(
-                        padding: const EdgeInsets.only(bottom: 5.0),
-                        child: Text(movie_obj.movieTitle ?? ''),
-                      ),
-                      subtitle: Text(
-                        movie_obj.movieDescription ?? '',
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                              color: Colors.white.withOpacity(.7),
+                    // return ListTile(
+                    //   textColor: Colors.white,
+                    //   leading: Container(
+                    //     width: 60,
+                    //     child: Image(
+                    //       image: NetworkImage(movie_obj.movieImage ?? ''),
+                    //     ),
+                    //   ),
+                    //   tileColor: Colors.black26,
+                    //   contentPadding: const EdgeInsets.all(5),
+                    //   shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(10),
+                    //   ),
+                    //   title: Padding(
+                    //     padding: const EdgeInsets.only(bottom: 5.0),
+                    //     child: Text(movie_obj.movieTitle ?? ''),
+                    //   ),
+                    //   subtitle: Text(
+                    //     movie_obj.movieDescription ?? '',
+                    //     maxLines: 4,
+                    //     overflow: TextOverflow.ellipsis,
+                    //     style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                    //           color: Colors.white.withOpacity(.7),
+                    //         ),
+                    //   ),
+                    //   trailing: Stack(
+                    //     alignment: Alignment.center,
+                    //     children: [
+                    //       const Icon(
+                    //         Icons.star,
+                    //         color: Colors.amber,
+                    //         size: 50,
+                    //       ),
+                    //       Text(
+                    //         movie_obj.movieRating.toString(),
+                    //         style: Theme.of(context)
+                    //             .textTheme
+                    //             .subtitle2!
+                    //             .copyWith(color: Colors.white),
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   isThreeLine: true,
+                    //   onTap: () {},
+                    // );
+
+                    return Card(
+                      color: Colors.black26,
+                      clipBehavior: Clip.antiAlias,
+                      child: Container(
+                        height: 120,
+                        padding: const EdgeInsets.all(0),
+                        color: Colors.black26,
+                        child: Row(children: [
+                          Expanded(
+                            flex: 8,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          movie_obj.movieImage ?? ''),
+                                      fit: BoxFit.cover)),
                             ),
-                      ),
-                      trailing: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 50,
                           ),
-                          Text(
-                            movie_obj.movieRating.toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle2!
-                                .copyWith(color: Colors.white),
+                          const Spacer(
+                            flex: 1,
                           ),
-                        ],
+                          Expanded(
+                            flex: 20,
+                            child: Container(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(movie_obj.movieTitle ?? '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline2!
+                                          .copyWith(
+                                              color: Colors.white
+                                                  .withOpacity(.9))),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    movie_obj.movieDescription ?? '',
+                                    maxLines: 4,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                          color: Colors.grey[500],
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const Spacer(
+                            flex: 1,
+                          ),
+                          Expanded(
+                            flex: 6,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Icon(
+                                  Icons.star_rounded,
+                                  color: Colors.amber[700],
+                                  size: 60,
+                                ),
+                                Text(
+                                  movie_obj.movieRating.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline2!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ]),
                       ),
-                      isThreeLine: true,
-                      onTap: () {},
                     );
                   }),
             )
