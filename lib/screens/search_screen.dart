@@ -4,7 +4,6 @@ import 'package:cinema_app/models/movies/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-
 import '../widgets/movie_card.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -73,6 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         _chosenTitle = value;
                       },
                       onSubmitted: (value) {
+                        if (value.isEmpty) return;
                         getMoviesResults(
                                 title: _chosenTitle,
                                 genres: _expanded ? _chosenGenres : null,
