@@ -10,6 +10,8 @@ import 'package:cinema_app/dio_helper.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
+import '../models/movies/movie.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -20,17 +22,21 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   // late TabController _tabController;
   List? movies_list;
+  final int itemCount = 5;
+  List<Movie>? list = [];
 
   @override
   void initState() {
     super.initState();
-    // movies_list = null;
-    // _tabController = TabController(length: 2, vsync: this);
+
     DioHelper.getData(path: MOVIES).then((value) {
       setState(() {
         movies_list = value.data;
+        value.data!.forEach((element) {
+          list!.add(Movie.fromJson(element));
+        });
       });
-      print(movies_list);
+      print(list);
     });
   }
 
@@ -61,11 +67,14 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemCount: movies_list!.length,
+                        itemCount: itemCount,
                         shrinkWrap: true,
                         itemExtent: 200,
-                        itemBuilder: (context, index) =>
-                            movieBuilder(context, movies_list![index])),
+                        itemBuilder: (context, index) {
+                          if (index == itemCount - 1)
+                            return showMore(context, list);
+                          return movieBuilder(context, list![index]);
+                        }),
                   ),
                 ],
               ),
@@ -74,29 +83,3 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         ));
   }
 }
-// TabBar(
-//   controller: _tabController,
-//   labelColor: Colors.blue,
-//   unselectedLabelColor: Colors.grey,
-//   labelStyle: Theme.of(context).textTheme.bodyText1,
-//   indicatorSize: TabBarIndicatorSize.label,
-//   tabs: const [
-//     Tab(
-//       text: 'Cinemas',
-//     ),
-//     Tab(
-//       text: 'Movies',
-//     ),
-//   ],
-// ),
-//  Container(
-//   height: MediaQuery.of(context).size.height,
-//    child: TabBarView(
-
-//      controller: _tabController,
-//      children:const [
-//        CinemasScreen(),
-//        MoviesScreen()
-//      ],
-//    ),
-//  ),

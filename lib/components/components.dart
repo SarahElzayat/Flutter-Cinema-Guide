@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:cinema_app/screens/movies.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cinema_app/screens/movies_screen_bgd.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icon.dart';
 
-Widget movieBuilder(context, item) => InkWell(
+import '../models/movies/movie.dart';
+
+Widget movieBuilder(context, Movie item) => InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -17,7 +20,8 @@ Widget movieBuilder(context, item) => InkWell(
               topLeft: Radius.circular(10), topRight: Radius.circular(10)),
           image: DecorationImage(
               image: NetworkImage(
-                item['movie_image'],
+                item.movieImage.toString(),
+                // ['movie_image'],
               ),
               fit: BoxFit.cover),
         ),
@@ -38,13 +42,13 @@ Widget movieBuilder(context, item) => InkWell(
                           Colors.black,
                         ],
                       ),
-                      color: Colors.black.withOpacity(.5)),
+                      color: Colors.black.withOpacity(.8)),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 2.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(item['movie_title'],
+                        Text(item.movieTitle.toString(), //['movie_title'],
                             textAlign: TextAlign.center,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -58,7 +62,8 @@ Widget movieBuilder(context, item) => InkWell(
                               color: Colors.amber[400],
                             ),
                             Text(
-                              item['movie_rating'].toString(),
+                              item.movieRating
+                                  .toString(), //['movie_rating'].toString(),
                               softWrap: false,
                               style: Theme.of(context).textTheme.headline2,
                             ),
@@ -69,6 +74,105 @@ Widget movieBuilder(context, item) => InkWell(
                   )),
             )),
           ],
+        ),
+      ),
+    );
+
+Widget showMore(context, list) => InkWell(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Movies(list: list),
+          )),
+      child: Card(
+        color: Theme.of(context).primaryColor.withOpacity(.5),
+        child: Center(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'View more',
+              style: Theme.of(context).textTheme.headline3,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Icon(
+                Icons.arrow_circle_right_outlined,
+              ),
+            )
+          ],
+        )),
+      ),
+    );
+
+Widget movieScreenBuilder(context, Movie item) => InkWell(
+  onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MoviesScreen(movie: item),
+          )),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Card(
+          color: Theme.of(context).primaryColor.withOpacity(.4),
+
+          // color: Colors.grey.withOpacity(.2),
+
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    item.movieImage.toString(),
+                    scale: 1.3,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.movieTitle.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star_rounded,
+                              color: Colors.amber,
+                            ),
+                            Text(
+                              item.movieRating.toString(),
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ],
+                        ),
+                        
+                        Text(
+                          item.movieDescription.toString(),
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontWeight: FontWeight.w300,
+                              color: Colors.white70),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
