@@ -4,6 +4,7 @@ import 'package:cinema_app/models/movies/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import '../models/cinema/cinema.dart';
 import '../widgets/movie_card.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   final List<String> _genres = [];
   List<Movie>? _moviesResults;
+  List<Cinema>? _cinemasResults;
   @override
   void initState() {
     super.initState();
@@ -59,189 +61,72 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: TextField(
                       style: const TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Search ${_isMovies ? "Movies" : "Cinames"}',
-                        hintStyle: const TextStyle(color: Colors.white70),
-                        icon: const Icon(
+                        hintText: 'Search Cinemas and Movies',
+                        hintStyle: TextStyle(color: Colors.white70),
+                        icon: Icon(
                           Icons.search,
                           color: Colors.white70,
                         ),
                       ),
                       onChanged: (value) {
                         _chosenTitle = value;
+                        getSearchResults();
                       },
                       onSubmitted: (value) {
-                        if (value.isEmpty) return;
-                        getMoviesResults(
-                                title: _chosenTitle,
-                                genres: _expanded ? _chosenGenres : null,
-                                rating: _expanded ? _chosenRating : null)
-                            .then((value) {
-                          setState(() {
-                            _moviesResults = value;
-                          });
-                        });
+                        getSearchResults();
                       },
                     ),
                   ),
-                  IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _expanded = !_expanded;
-                        });
-                      },
-                      icon: Icon(
-                          _expanded ? Icons.expand_less : Icons.expand_more,
-                          color: Colors.white70,
-                          size: 30))
                 ],
               ),
             ),
-            if (_expanded)
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 123, 33, 27),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10)),
-                ),
+            // if (_expanded) tailingContainer(context),
+            Expanded(
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      // clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            width: 150,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    backgroundColor: _isMovies
-                                        ? Theme.of(context).primaryColor
-                                        : const Color.fromARGB(
-                                            255, 30, 30, 30)),
-                                onPressed: () {
-                                  if (!_isMovies) {
-                                    setState(() {
-                                      _isMovies = true;
-                                    });
-                                  }
-                                },
-                                child: const Text(
-                                  "Movies",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                          ),
-                          SizedBox(
-                            width: 150,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    backgroundColor: _isMovies
-                                        ? const Color.fromARGB(255, 30, 30, 30)
-                                        : Theme.of(context).primaryColor),
-                                onPressed: () {
-                                  if (_isMovies) {
-                                    setState(() {
-                                      _isMovies = false;
-                                    });
-                                  }
-                                },
-                                child: const Text(
-                                  "Cinames",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (_isMovies)
-                      Container(
-                        margin: const EdgeInsets.only(top: 10, bottom: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
+                    ListView.separated(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemBuilder: (_, ind) => ListTile(
+                              tileColor: Colors.black87,
+                              style: ListTileStyle.drawer,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50)),
+                              title: Text(
+                                _cinemasResults![ind].cinemaName!,
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                              trailing: Icon(
+                                Icons.arrow_forward_ios,
                                 color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: MultiSelectBottomSheetField<String?>(
-                                initialChildSize: 0.4,
-                                backgroundColor:
-                                    const Color.fromARGB(255, 101, 101, 101),
-                                searchable: true,
-                                buttonText: Text("Choose Genres",
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1),
-                                title: const Text("Genres"),
-                                items: _genres
-                                    .map((e) => MultiSelectItem(e, e))
-                                    .toList(),
-                                listType: MultiSelectListType.CHIP,
-                                onConfirm: (values) {
-                                  _chosenGenres = values;
-                                },
-                                chipDisplay: MultiSelectChipDisplay(
-                                  // the displayed chips after selection
-                                  onTap: (value) {},
-                                ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text("  Min Rating",
-                                style: Theme.of(context).textTheme.bodyText1),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Center(
-                              child: RatingBar.builder(
-                                initialRating: _chosenRating,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 10,
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                itemSize: 35.0,
-                                onRatingUpdate: (rating) {
-                                  _chosenRating = rating;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 1,
+                          );
+                        },
+                        itemCount: _cinemasResults!.length),
+                    ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 10,
+                          );
+                        },
+                        itemCount:
+                            _moviesResults == null ? 0 : _moviesResults!.length,
+                        itemBuilder: (context, index) {
+                          return movieCard(context, _moviesResults![index]);
+                        })
                   ],
                 ),
               ),
-            Expanded(
-              child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 10,
-                    );
-                  },
-                  itemCount:
-                      _moviesResults == null ? 0 : _moviesResults!.length,
-                  itemBuilder: (context, index) {
-                    return movieCard(context, _moviesResults![index]);
-                  }),
             )
           ],
         ),
@@ -249,7 +134,148 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-//GET /api/movies/?movie_title=ah&movie_genres=Science+Fiction&movie_genres=Thriller&movie_genres=Musical&movie_rating=5.0
+  Container tailingContainer(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color.fromARGB(255, 123, 33, 27),
+        borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+      ),
+      child: Column(
+        children: [
+          Container(
+            // clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 150,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          backgroundColor: _isMovies
+                              ? Theme.of(context).primaryColor
+                              : const Color.fromARGB(255, 30, 30, 30)),
+                      onPressed: () {
+                        if (!_isMovies) {
+                          setState(() {
+                            _isMovies = true;
+                          });
+                        }
+                      },
+                      child: const Text(
+                        "Movies",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
+                SizedBox(
+                  width: 150,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          backgroundColor: _isMovies
+                              ? const Color.fromARGB(255, 30, 30, 30)
+                              : Theme.of(context).primaryColor),
+                      onPressed: () {
+                        if (_isMovies) {
+                          setState(() {
+                            _isMovies = false;
+                          });
+                        }
+                      },
+                      child: const Text(
+                        "Cinames",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
+              ],
+            ),
+          ),
+          if (_isMovies)
+            Container(
+              margin: const EdgeInsets.only(top: 10, bottom: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: MultiSelectBottomSheetField<String?>(
+                      initialChildSize: 0.4,
+                      backgroundColor: const Color.fromARGB(255, 101, 101, 101),
+                      searchable: true,
+                      buttonText: Text("Choose Genres",
+                          style: Theme.of(context).textTheme.bodyText1),
+                      title: const Text("Genres"),
+                      items: _genres.map((e) => MultiSelectItem(e, e)).toList(),
+                      listType: MultiSelectListType.CHIP,
+                      onConfirm: (values) {
+                        _chosenGenres = values;
+                      },
+                      chipDisplay: MultiSelectChipDisplay(
+                        // the displayed chips after selection
+                        onTap: (value) {},
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text("  Min Rating",
+                      style: Theme.of(context).textTheme.bodyText1),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: RatingBar.builder(
+                      initialRating: _chosenRating,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 10,
+                      itemBuilder: (context, _) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      itemSize: 35.0,
+                      onRatingUpdate: (rating) {
+                        _chosenRating = rating;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  void getSearchResults() {
+    if (_chosenTitle.isEmpty) return;
+    getCinemaResults(title: _chosenTitle).then(
+      (value) {
+        _cinemasResults = value;
+      },
+    );
+
+    getMoviesResults(
+            title: _chosenTitle,
+            genres: _expanded ? _chosenGenres : null,
+            rating: _expanded ? _chosenRating : null)
+        .then((value) {
+      setState(() {
+        _moviesResults = value;
+      });
+    });
+  }
 
   Future<List<Movie>> getMoviesResults(
       {required String? title,
@@ -267,5 +293,18 @@ class _SearchScreenState extends State<SearchScreen> {
       return movies;
     });
     return movies;
+  }
+
+  Future<List<Cinema>> getCinemaResults({required String title}) async {
+    List<Cinema> ret = [];
+    await DioHelper.getData(path: CINEMAS, query: {'search': title})
+        .then((value) {
+      for (var e in value.data) {
+        ret.add(Cinema.fromJson(e));
+        print(ret);
+        return ret;
+      }
+    });
+    return ret;
   }
 }
