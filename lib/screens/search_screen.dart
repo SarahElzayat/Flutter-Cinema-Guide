@@ -189,6 +189,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             Expanded(
               child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
                   separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(
                       height: 10,
