@@ -4,6 +4,7 @@ import 'package:cinema_app/models/movies/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import '../models/cinema/cinema.dart';
 import '../widgets/movie_card.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   final List<String> _genres = [];
   List<Movie>? _moviesResults;
+  List<Movie>? _cinemasResults;
   @override
   void initState() {
     super.initState();
@@ -267,5 +269,17 @@ class _SearchScreenState extends State<SearchScreen> {
       return movies;
     });
     return movies;
+  }
+
+  Future<List<Cinema>> getCinemaResults({required String title}) async {
+    List<Cinema> ret = [];
+    await DioHelper.getData(path: CINEMAS, query: {'search': title})
+        .then((value) {
+      for (var e in value.data) {
+        ret.add(Cinema.fromJson(e));
+        return ret;
+      }
+    });
+    return ret;
   }
 }
