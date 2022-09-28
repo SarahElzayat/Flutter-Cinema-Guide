@@ -83,20 +83,50 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             // if (_expanded) tailingContainer(context),
-            
             Expanded(
-              child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 10,
-                    );
-                  },
-                  itemCount:
-                      _moviesResults == null ? 0 : _moviesResults!.length,
-                  itemBuilder: (context, index) {
-                    return movieCard(context, _moviesResults![index]);
-                  }),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListView.separated(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemBuilder: (_, ind) => ListTile(
+                              tileColor: Colors.black87,
+                              style: ListTileStyle.drawer,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50)),
+                              title: Text(
+                                _cinemasResults![ind].cinemaName!,
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                              trailing: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 1,
+                          );
+                        },
+                        itemCount: _cinemasResults!.length),
+                    ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 10,
+                          );
+                        },
+                        itemCount:
+                            _moviesResults == null ? 0 : _moviesResults!.length,
+                        itemBuilder: (context, index) {
+                          return movieCard(context, _moviesResults![index]);
+                        })
+                  ],
+                ),
+              ),
             )
           ],
         ),
