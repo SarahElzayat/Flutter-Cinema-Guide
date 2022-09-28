@@ -256,7 +256,7 @@ class _SearchScreenState extends State<SearchScreen> {
       required List<String?>? genres,
       required double? rating}) async {
     List<Movie> movies = [];
-    Map<String, dynamic> q = {'movie_title': title};
+    Map<String, dynamic> q = {'movie_title': title, 'order': '-rating'};
     if (genres != null) q['movie_genres'] = genres;
     if (rating != null) q['movie_rating'] = rating;
 
