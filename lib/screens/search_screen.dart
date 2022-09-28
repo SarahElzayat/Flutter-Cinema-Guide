@@ -75,8 +75,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       onSubmitted: (value) {
                         getMoviesResults(
                                 title: _chosenTitle,
-                                genres: _chosenGenres,
-                                rating: _chosenRating)
+                                genres: _expanded ? _chosenGenres : null,
+                                rating: _expanded ? _chosenRating : null)
                             .then((value) {
                           setState(() {
                             _moviesResults = value;
@@ -253,19 +253,17 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future<List<Movie>> getMoviesResults(
       {required String? title,
-      required List<String?> genres,
+      required List<String?>? genres,
       required double? rating}) async {
     List<Movie> movies = [];
-    await DioHelper.getData(path: MOVIES, query: {
-      'movie_title': title,
-      'movie_genres': genres,
-      'movie_rating': rating
-    }).then((value) {
+    Map<String, dynamic> q = {'movie_title': title};
+    if (genres != null) q['movie_genres'] = genres;
+    if (rating != null) q['movie_rating'] = rating;
+
+    await DioHelper.getData(path: MOVIES, query: q).then((value) {
       for (var e in value.data) {
-        print(e);
         movies.add(Movie.fromJson(e));
       }
-      print(movies);
       return movies;
     });
     return movies;
