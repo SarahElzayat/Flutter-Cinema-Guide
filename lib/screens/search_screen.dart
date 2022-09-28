@@ -1,8 +1,11 @@
 import 'package:cinema_app/constants/endpoints.dart';
+import 'package:cinema_app/dio_helper.dart';
 import 'package:cinema_app/models/movies/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+
+import '../widgets/movie_card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -14,21 +17,21 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   var _expanded = false;
   var _isMovies = true;
-  final movie_obj = Movie.fromJson(JSON);
-  final _genres = [
-    'Action',
-    'Adventure',
-    'Animation',
-    'Comedy',
-    'Crime',
-    'Documentary',
-    'Drama',
-    'Family',
-    'Fantasy',
-    'History',
-    'Horror',
-    'Music',
-  ];
+  String _chosenTitle = "";
+  List<String?> _chosenGenres = [];
+  double _chosenRating = 7.0;
+
+  final List<String> _genres = [];
+  List<Movie>? _moviesResults;
+  @override
+  void initState() {
+    super.initState();
+    DioHelper.getData(path: GENRES).then((value) {
+      for (var element in value.data) {
+        _genres.add(element as String);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +59,20 @@ class _SearchScreenState extends State<SearchScreen> {
                         hintText: 'Search ${_isMovies ? "Movies" : "Cinames"}',
                         icon: const Icon(Icons.search),
                       ),
+                      onChanged: (value) {
+                        _chosenTitle = value;
+                      },
+                      onSubmitted: (value) {
+                        getMoviesResults(
+                                title: _chosenTitle,
+                                genres: _chosenGenres,
+                                rating: _chosenRating)
+                            .then((value) {
+                          setState(() {
+                            _moviesResults = value;
+                          });
+                        });
+                      },
                     ),
                   ),
                   IconButton(
@@ -135,7 +152,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   .withOpacity(.4),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: MultiSelectBottomSheetField(
+                            child: MultiSelectBottomSheetField<String?>(
                               initialChildSize: 0.4,
                               backgroundColor: Colors.grey[700],
                               searchable: true,
@@ -144,10 +161,11 @@ class _SearchScreenState extends State<SearchScreen> {
                               title: const Text("Genres"),
                               items: _genres
                                   .map((e) => MultiSelectItem(e, e))
-                                  .toList(growable: false),
+                                  .toList(),
                               listType: MultiSelectListType.CHIP,
                               onConfirm: (values) {
-                                print(values);
+                                _chosenGenres = values;
+                                print(_chosenGenres);
                               },
                               chipDisplay: MultiSelectChipDisplay(
                                 // the displayed chips after selection
@@ -165,7 +183,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           Center(
                             child: RatingBar.builder(
-                              initialRating: 7,
+                              initialRating: _chosenRating,
                               minRating: 1,
                               direction: Axis.horizontal,
                               allowHalfRating: true,
@@ -176,9 +194,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               ),
                               itemSize: 35.0,
                               onRatingUpdate: (rating) {
-                                setState(() {
-                                  print(rating);
-                                });
+                                _chosenRating = rating;
                               },
                             ),
                           ),
@@ -195,96 +211,37 @@ class _SearchScreenState extends State<SearchScreen> {
                       height: 10,
                     );
                   },
-                  itemCount: 20,
+                  itemCount:
+                      _moviesResults == null ? 0 : _moviesResults!.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      color: Colors.black26,
-                      clipBehavior: Clip.antiAlias,
-                      child: Container(
-                        height: 120,
-                        padding: const EdgeInsets.all(0),
-                        color: Colors.black26,
-                        child: Row(children: [
-                          Expanded(
-                            flex: 8,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          movie_obj.movieImage ?? ''),
-                                      fit: BoxFit.cover)),
-                            ),
-                          ),
-                          const Spacer(
-                            flex: 1,
-                          ),
-                          Expanded(
-                            flex: 20,
-                            child: Container(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(movie_obj.movieTitle ?? '',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2!
-                                          .copyWith(
-                                              color: Colors.white
-                                                  .withOpacity(.9))),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    movie_obj.movieDescription ?? '',
-                                    maxLines: 4,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .subtitle2!
-                                        .copyWith(
-                                          color: Colors.grey[500],
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const Spacer(
-                            flex: 1,
-                          ),
-                          Expanded(
-                            flex: 6,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.star_rounded,
-                                  color: Colors.amber[700],
-                                  size: 50,
-                                ),
-                                Text(
-                                  movie_obj.movieRating.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline2!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ]),
-                      ),
-                    );
+                    return movieCard(context, _moviesResults![index]);
                   }),
             )
           ],
         ),
       ),
     );
+  }
+
+//GET /api/movies/?movie_title=ah&movie_genres=Science+Fiction&movie_genres=Thriller&movie_genres=Musical&movie_rating=5.0
+
+  Future<List<Movie>> getMoviesResults(
+      {required String? title,
+      required List<String?> genres,
+      required double? rating}) async {
+    List<Movie> movies = [];
+    await DioHelper.getData(path: MOVIES, query: {
+      'movie_title': title,
+      'movie_genres': genres,
+      'movie_rating': rating
+    }).then((value) {
+      for (var e in value.data) {
+        print(e);
+        movies.add(Movie.fromJson(e));
+      }
+      print(movies);
+      return movies;
+    });
+    return movies;
   }
 }

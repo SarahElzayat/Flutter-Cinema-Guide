@@ -1,6 +1,7 @@
 const BASE_URL = 'http://10.0.2.2:8000/api/';
 const CINEMAS = 'cinemas/';
 const MOVIES = 'movies/';
+const GENRES = 'genres/';
 
 const Map<String, dynamic> JSON = {
   "movie_title": "Avatar : Part 1 (2009)",

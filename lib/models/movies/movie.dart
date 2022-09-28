@@ -23,7 +23,7 @@ class Movie {
         movieTitle: json['movie_title'] as String?,
         movieDescription: json['movie_description'] as String?,
         movieImage: json['movie_image'] as String?,
-        movieGenres: json['movie_genres'] as List<String>?,
+        movieGenres: json['movie_genres'].cast<String>() as List<String>?,
         movieLinkId: json['movie_link_id'] as String?,
         movieRating: (json['movie_rating'] as num?)?.toDouble(),
         cinema: (json['cinema'] as List<dynamic>?)
