@@ -20,6 +20,7 @@ class _MoviesState extends State<Movies> {
   double _chosenRating = 7.0;
   final List<String> _genres = [];
   List<Movie> _moviesList = [];
+  bool _is_filtered = false;
   @override
   void initState() {
     super.initState();
@@ -48,13 +49,24 @@ class _MoviesState extends State<Movies> {
           ],
         ),
         actions: [
+          if (_is_filtered)
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    _is_filtered = false;
+                    _moviesList = [...widget.allMoviesList];
+                    _chosenGenres.clear();
+                    _chosenRating = 7.0;
+                  });
+                },
+                icon: const FaIcon(FontAwesomeIcons.filterCircleXmark)),
           IconButton(
               onPressed: () {
                 showDialog(
                     context: context,
-                    builder: (context) => tailingContainer(context));
+                    builder: (context) => filterDialog(context));
               },
-              icon: const FaIcon(FontAwesomeIcons.filter))
+              icon: const FaIcon(FontAwesomeIcons.filter)),
         ],
       ),
       body: ListView.builder(
@@ -65,7 +77,7 @@ class _MoviesState extends State<Movies> {
     );
   }
 
-  Dialog tailingContainer(BuildContext context) {
+  Dialog filterDialog(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
@@ -73,22 +85,30 @@ class _MoviesState extends State<Movies> {
       clipBehavior: Clip.antiAlias,
       child: Container(
         padding: const EdgeInsets.all(15),
-        height: 300,
         decoration: const BoxDecoration(
           color: Color.fromARGB(255, 123, 33, 27),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).splashColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
+                border: Border.all(
+                  color: Theme.of(context).splashColor,
+                  width: 1,
+                ),
               ),
               child: MultiSelectBottomSheetField<String?>(
                 initialChildSize: 0.5,
+                initialValue: _chosenGenres,
+                decoration: const BoxDecoration(),
                 backgroundColor: const Color.fromARGB(255, 101, 101, 101),
-                searchable: true,
+                separateSelectedItems: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 buttonText: Text("Choose Genres",
                     style: Theme.of(context).textTheme.bodyText1),
                 title: const Text("Genres"),
@@ -99,6 +119,7 @@ class _MoviesState extends State<Movies> {
                 },
                 chipDisplay: MultiSelectChipDisplay(
                   // the displayed chips after selection
+
                   onTap: (value) {},
                 ),
               ),
@@ -127,7 +148,10 @@ class _MoviesState extends State<Movies> {
                 },
               ),
             ),
-            const Spacer(),
+            // const Spacer(),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
                 Expanded(
@@ -157,6 +181,8 @@ class _MoviesState extends State<Movies> {
                           .then((value) {
                         setState(() {
                           _moviesList = value;
+
+                          _is_filtered = true;
                         });
                         Navigator.pop(context);
                       });
