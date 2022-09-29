@@ -44,9 +44,12 @@ class MoviesScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Center(
-                      child: Image.network(
-                    movie.movieImage.toString(), //['movie_image'],
-                    scale: .6,
+                      child: Hero(
+                    tag: movie.movieLinkId.toString(),
+                    child: Image.network(
+                      movie.movieImage!, //['movie_image'],
+                      scale: .6,
+                    ),
                   )),
                   const SizedBox(
                     height: 10,

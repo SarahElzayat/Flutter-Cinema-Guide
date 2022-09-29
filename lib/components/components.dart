@@ -122,14 +122,25 @@ Widget saraMovieCard(context, Movie item) => InkWell(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    item.movieImage.toString(),
-                    scale: 1.3,
-                  ),
+                Expanded(
+                  flex: 14,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Hero(
+                        tag: item.movieLinkId.toString(),
+                        child: FadeInImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            item.movieImage.toString(),
+                            scale: 1.3,
+                          ),
+                          placeholder:
+                              const AssetImage('assets/images/video.png'),
+                        ),
+                      )),
                 ),
                 Expanded(
+                  flex: 30,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Column(

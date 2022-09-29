@@ -20,11 +20,14 @@ Widget movieCard(BuildContext context, Movie movieObj) {
         child: Row(children: [
           Expanded(
             flex: 8,
-            child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(movieObj.movieImage ?? ''),
-                      fit: BoxFit.cover)),
+            child: Hero(
+              tag: movieObj.movieLinkId.toString(),
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(movieObj.movieImage ?? ''),
+                        fit: BoxFit.cover)),
+              ),
             ),
           ),
           const Spacer(
