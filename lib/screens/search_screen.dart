@@ -79,38 +79,36 @@ class _SearchScreenState extends State<SearchScreen> {
                                 .copyWith(fontSize: 16))));
               },
               builder: (context) => Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      if (_cinemasResults != null)
-                        ListView.separated(
-                            primary: false,
-                            padding: EdgeInsets.zero,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        if (_cinemasResults != null)
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(children: [
+                              ...List.generate(
+                                _cinemasResults!.length,
+                                (index) => cinemaCard(
+                                    _cinemasResults![index], context),
+                              ),
+                            ]),
+                          ),
+                        ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemBuilder: (_, ind) =>
-                                cinemaCard(_cinemasResults![ind], context),
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const SizedBox(
-                                height: 1,
-                              );
-                            },
-                            itemCount: _cinemasResults!.length),
-                      ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const SizedBox(
-                              height: 10,
-                            );
-                          },
-                          itemCount: _moviesResults == null
-                              ? 0
-                              : _moviesResults!.length,
-                          itemBuilder: (context, index) {
-                            return movieCard(context, _moviesResults![index]);
-                          })
-                    ],
+                            itemCount: _moviesResults == null
+                                ? 0
+                                : _moviesResults!.length,
+                            itemBuilder: (context, index) {
+                              return movieCard(context, _moviesResults![index]);
+                            })
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -122,30 +120,35 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget cinemaCard(Cinema c, BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-      clipBehavior: Clip.antiAlias,
-      color: const Color.fromARGB(100, 18, 18, 18),
-      elevation: 1,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        color: Colors.black26,
-        child: Row(
-          children: [
-            const Icon(Icons.movie_filter_outlined),
-            const SizedBox(
-              width: 10,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.only(left: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: const Color.fromARGB(255, 123, 33, 27),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.movie_filter_outlined),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Text(
+              c.cinemaName!,
+              style: Theme.of(context).textTheme.headline2,
+              overflow: TextOverflow.ellipsis,
+              softWrap: true,
             ),
-            Flexible(
-              child: Text(
-                c.cinemaName!,
-                style: Theme.of(context).textTheme.bodyText1,
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
-              ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.arrow_forward_ios,
+              size: 20,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
