@@ -1,6 +1,6 @@
 import 'package:cinema_app/constants/endpoints.dart';
 import 'package:cinema_app/dio_helper.dart';
-import 'package:cinema_app/models/movies/movie.dart';
+import 'package:cinema_app/models/cinema/movie.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import '../models/cinema/cinema.dart';
@@ -19,7 +19,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   List<Movie>? _moviesResults;
   List<Cinema>? _cinemasResults;
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +61,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         setState(() {
                           getSearchResults();
                         });
-                      },
-                      onSubmitted: (value) {
-                        getSearchResults();
                       },
                     ),
                   ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/movies/movie.dart';
+import '../models/cinema/movie.dart';
 import '../screens/movies.dart';
 
 Widget movieCard(BuildContext context, Movie movieObj) {

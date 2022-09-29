@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:cinema_app/screens/movies.dart';
 import 'package:cinema_app/screens/movies_screen_bgd.dart';
 import 'package:flutter/material.dart';
-import '../models/movies/movie.dart';
+
+import '../models/cinema/movie.dart';
 
 Widget movieBuilder(context, Movie item) => InkWell(
       onTap: () => Navigator.push(

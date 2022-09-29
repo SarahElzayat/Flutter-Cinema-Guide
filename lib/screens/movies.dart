@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../models/movies/movie.dart';
+import '../models/cinema/movie.dart';
 
 class MoviesScreen extends StatelessWidget {
   const MoviesScreen({super.key, required this.movie});
@@ -24,7 +24,7 @@ class MoviesScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.transparent,
           body: Container(
-            height:double.infinity,
+            height: double.infinity,
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -55,7 +55,7 @@ class MoviesScreen extends StatelessWidget {
                     movie.movieTitle.toString(), //['movie_title'],
                     style: Theme.of(context).textTheme.headline3,
                   ),
-            
+
                   Row(
                     textBaseline: TextBaseline.alphabetic,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -75,7 +75,7 @@ class MoviesScreen extends StatelessWidget {
                   ),
                   //TODO
                   //add genres
-            
+
                   const SizedBox(
                     height: 5,
                   ),
@@ -97,8 +97,6 @@ class MoviesScreen extends StatelessWidget {
                           itemBuilder: (context, index) => MaterialButton(
                             elevation: 2,
                             padding: const EdgeInsets.all(5),
-                    
-            
                             onPressed: () {},
                             child: Text(
                               movie.cinema![index].cinemaName.toString(),
@@ -124,7 +122,7 @@ class MoviesScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-            
+
                   Wrap(
                     spacing: 5,
                     runSpacing: 8,
@@ -153,11 +151,11 @@ class MoviesScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-            
+
                   Text(
                     movie.movieDescription.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
-                  ), 
+                  ),
                 ],
               ),
             ),

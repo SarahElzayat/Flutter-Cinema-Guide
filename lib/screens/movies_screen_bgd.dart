@@ -5,10 +5,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../constants/endpoints.dart';
 import '../dio_helper.dart';
-import '../models/movies/movie.dart';
+import '../models/cinema/movie.dart';
 
 class Movies extends StatefulWidget {
-  Movies({super.key, required this.allMoviesList});
+  const Movies({super.key, required this.allMoviesList});
   final List<Movie> allMoviesList;
 
   @override
@@ -20,13 +20,12 @@ class _MoviesState extends State<Movies> {
   double _chosenRating = 7.0;
   final List<String> _genres = [];
   List<Movie> _moviesList = [];
-  bool _is_filtered = false;
+  bool _isFiltered = false;
   @override
   void initState() {
     super.initState();
     // copy content of the original List
     _moviesList = [...widget.allMoviesList];
-
     DioHelper.getData(path: GENRES).then((value) {
       for (var element in value.data) {
         _genres.add(element as String);
@@ -49,11 +48,11 @@ class _MoviesState extends State<Movies> {
           ],
         ),
         actions: [
-          if (_is_filtered)
+          if (_isFiltered)
             IconButton(
                 onPressed: () {
                   setState(() {
-                    _is_filtered = false;
+                    _isFiltered = false;
                     _moviesList = [...widget.allMoviesList];
                     _chosenGenres.clear();
                     _chosenRating = 7.0;
@@ -182,7 +181,7 @@ class _MoviesState extends State<Movies> {
                         setState(() {
                           _moviesList = value;
 
-                          _is_filtered = true;
+                          _isFiltered = true;
                         });
                         Navigator.pop(context);
                       });

@@ -1,8 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'dart:ui';
-
-import 'package:blur/blur.dart';
 import 'package:cinema_app/components/components.dart';
 import 'package:cinema_app/constants/endpoints.dart';
 import 'package:cinema_app/dio_helper.dart';
@@ -10,7 +5,8 @@ import 'package:cinema_app/dio_helper.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
-import '../models/movies/movie.dart';
+import '../models/cinema/movie.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -21,7 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   // late TabController _tabController;
-  List? movies_list;
+  List? moviesList;
   final int itemCount = 5;
   List<Movie>? list = [];
 
@@ -31,7 +27,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
     DioHelper.getData(path: MOVIES).then((value) {
       setState(() {
-        movies_list = value.data;
+        moviesList = value.data;
         value.data!.forEach((element) {
           list!.add(Movie.fromJson(element));
         });
@@ -46,7 +42,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           title: const Text('Home'),
         ),
         body: ConditionalBuilder(
-          condition: movies_list != null,
+          condition: moviesList != null,
           fallback: (context) =>
               const Center(child: CircularProgressIndicator()),
           builder: (context) => SafeArea(
