@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:cinema_app/constants/endpoints.dart';
 import 'package:cinema_app/dio_helper.dart';
 import 'package:cinema_app/models/movies/movie.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -15,7 +18,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  var _expanded = false;
+  final _expanded = false;
   var _isMovies = true;
   String _chosenTitle = "";
   List<String?> _chosenGenres = [];
@@ -72,7 +75,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       onChanged: (value) {
                         _chosenTitle = value;
-                        getSearchResults();
+                        setState(() {
+                          getSearchResults();
+                        });
                       },
                       onSubmitted: (value) {
                         getSearchResults();
@@ -82,52 +87,83 @@ class _SearchScreenState extends State<SearchScreen> {
                 ],
               ),
             ),
-            // if (_expanded) tailingContainer(context),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ListView.separated(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        itemBuilder: (_, ind) => ListTile(
-                              tileColor: Colors.black87,
-                              style: ListTileStyle.drawer,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50)),
-                              title: Text(
-                                _cinemasResults![ind].cinemaName!,
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                              trailing: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 1,
-                          );
-                        },
-                        itemCount: _cinemasResults!.length),
-                    ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 10,
-                          );
-                        },
-                        itemCount:
-                            _moviesResults == null ? 0 : _moviesResults!.length,
-                        itemBuilder: (context, index) {
-                          return movieCard(context, _moviesResults![index]);
-                        })
-                  ],
+            ConditionalBuilder(
+              condition: _chosenTitle.isNotEmpty,
+              fallback: (context) {
+                return Expanded(
+                    child: Center(
+                        child: Text("Start Typing to Search",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontSize: 16))));
+              },
+              builder: (context) => Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      if (_cinemasResults != null)
+                        ListView.separated(
+                            primary: false,
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemBuilder: (_, ind) =>
+                                cinemaCard(_cinemasResults![ind], context),
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return const SizedBox(
+                                height: 1,
+                              );
+                            },
+                            itemCount: _cinemasResults!.length),
+                      ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(
+                              height: 10,
+                            );
+                          },
+                          itemCount: _moviesResults == null
+                              ? 0
+                              : _moviesResults!.length,
+                          itemBuilder: (context, index) {
+                            return movieCard(context, _moviesResults![index]);
+                          })
+                    ],
+                  ),
                 ),
               ),
             )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget cinemaCard(Cinema c, BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      clipBehavior: Clip.antiAlias,
+      color: const Color.fromARGB(100, 18, 18, 18),
+      elevation: 1,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        color: Colors.black26,
+        child: Row(
+          children: [
+            const Icon(Icons.movie_filter_outlined),
+            const SizedBox(
+              width: 10,
+            ),
+            Flexible(
+              child: Text(
+                c.cinemaName!,
+                style: Theme.of(context).textTheme.bodyText1,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+              ),
+            ),
           ],
         ),
       ),
@@ -262,7 +298,9 @@ class _SearchScreenState extends State<SearchScreen> {
     if (_chosenTitle.isEmpty) return;
     getCinemaResults(title: _chosenTitle).then(
       (value) {
-        _cinemasResults = value;
+        setState(() {
+          _cinemasResults = value;
+        });
       },
     );
 
@@ -301,9 +339,8 @@ class _SearchScreenState extends State<SearchScreen> {
         .then((value) {
       for (var e in value.data) {
         ret.add(Cinema.fromJson(e));
-        print(ret);
-        return ret;
       }
+      return ret;
     });
     return ret;
   }

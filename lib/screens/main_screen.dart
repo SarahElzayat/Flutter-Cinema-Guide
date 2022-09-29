@@ -71,8 +71,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         shrinkWrap: true,
                         itemExtent: 200,
                         itemBuilder: (context, index) {
-                          if (index == itemCount - 1)
+                          if (index == itemCount - 1) {
                             return showMore(context, list);
+                          }
                           return movieBuilder(context, list![index]);
                         }),
                   ),

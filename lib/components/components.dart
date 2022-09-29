@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:cinema_app/screens/movies.dart';
 import 'package:cinema_app/screens/movies_screen_bgd.dart';
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icon.dart';
-
 import '../models/movies/movie.dart';
 
 Widget movieBuilder(context, Movie item) => InkWell(
@@ -106,7 +104,7 @@ Widget showMore(context, list) => InkWell(
     );
 
 Widget movieScreenBuilder(context, Movie item) => InkWell(
-  onTap: () => Navigator.push(
+      onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => MoviesScreen(movie: item),
@@ -155,7 +153,6 @@ Widget movieScreenBuilder(context, Movie item) => InkWell(
                             ),
                           ],
                         ),
-                        
                         Text(
                           item.movieDescription.toString(),
                           maxLines: 5,
@@ -163,8 +160,9 @@ Widget movieScreenBuilder(context, Movie item) => InkWell(
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
-                              .copyWith(fontWeight: FontWeight.w300,
-                              color: Colors.white70),
+                              .copyWith(
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white70),
                         ),
                       ],
                     ),
