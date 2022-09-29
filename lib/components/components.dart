@@ -80,7 +80,7 @@ Widget showMore(context, list) => InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Movies(list: list),
+            builder: (context) => Movies(allMoviesList: list),
           )),
       child: Card(
         color: Theme.of(context).primaryColor.withOpacity(.5),
@@ -103,7 +103,7 @@ Widget showMore(context, list) => InkWell(
       ),
     );
 
-Widget movieScreenBuilder(context, Movie item) => InkWell(
+Widget SaraMovieCard(context, Movie item) => InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
