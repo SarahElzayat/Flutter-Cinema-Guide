@@ -104,7 +104,7 @@ Widget showMore(context, list) => InkWell(
       ),
     );
 
-Widget SaraMovieCard(context, Movie item) => InkWell(
+Widget saraMovieCard(context, Movie item) => InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(

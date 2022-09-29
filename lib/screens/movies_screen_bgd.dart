@@ -71,7 +71,7 @@ class _MoviesState extends State<Movies> {
       body: ListView.builder(
         itemCount: _moviesList.length,
         itemBuilder: (context, index) =>
-            SaraMovieCard(context, _moviesList[index]),
+            saraMovieCard(context, _moviesList[index]),
       ),
     );
   }
