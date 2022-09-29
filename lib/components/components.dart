@@ -4,6 +4,7 @@ import 'package:cinema_app/screens/movies.dart';
 import 'package:cinema_app/screens/movies_screen_bgd.dart';
 import 'package:flutter/material.dart';
 
+import '../models/cinema/cinema.dart';
 import '../models/cinema/movie.dart';
 
 Widget movieBuilder(context, Movie item) => InkWell(
@@ -12,67 +13,70 @@ Widget movieBuilder(context, Movie item) => InkWell(
           MaterialPageRoute(
             builder: (context) => MoviesScreen(movie: item),
           )),
-      child: Container(
-        margin: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-          image: DecorationImage(
-              image: NetworkImage(
-                item.movieImage.toString(),
-                // ['movie_image'],
-              ),
-              fit: BoxFit.cover),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ClipRect(
-                child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 2),
-              child: Container(
-                  height: 50.0,
-                  decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.transparent,
-                          Colors.black,
-                        ],
-                      ),
-                      color: Colors.black.withOpacity(.8)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(item.movieTitle.toString(), //['movie_title'],
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.headline2),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.star_rate_rounded,
-                              color: Colors.amber[400],
-                            ),
-                            Text(
-                              item.movieRating
-                                  .toString(), //['movie_rating'].toString(),
-                              softWrap: false,
-                              style: Theme.of(context).textTheme.headline2,
-                            ),
+      child: Hero(
+        tag: item.movieLinkId.toString(),
+        child: Container(
+          margin: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            image: DecorationImage(
+                image: NetworkImage(
+                  item.movieImage.toString(),
+                  // ['movie_image'],
+                ),
+                fit: BoxFit.cover),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ClipRect(
+                  child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 2),
+                child: Container(
+                    height: 50.0,
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black,
                           ],
                         ),
-                      ],
-                    ),
-                  )),
-            )),
-          ],
+                        color: Colors.black.withOpacity(.8)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item.movieTitle.toString(), //['movie_title'],
+                              textAlign: TextAlign.center,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.headline2),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.star_rate_rounded,
+                                color: Colors.amber[400],
+                              ),
+                              Text(
+                                item.movieRating
+                                    .toString(), //['movie_rating'].toString(),
+                                softWrap: false,
+                                style: Theme.of(context).textTheme.headline2,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )),
+              )),
+            ],
+          ),
         ),
       ),
     );
@@ -114,9 +118,7 @@ Widget saraMovieCard(context, Movie item) => InkWell(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Card(
           color: Theme.of(context).primaryColor.withOpacity(.4),
-
-          // color: Colors.grey.withOpacity(.2),
-
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -182,6 +184,32 @@ Widget saraMovieCard(context, Movie item) => InkWell(
                 )
               ],
             ),
+          ),
+        ),
+      ),
+    );
+
+Widget cinemasBuilder(context, Cinema item) => InkWell(
+      onTap: () {},
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Theme.of(context).primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 100,
+                width: 100,
+                child: Placeholder(),
+              ),
+              Center(
+                child: Text(
+                  item.cinemaName.toString(),
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ),
+            ],
           ),
         ),
       ),

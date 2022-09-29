@@ -50,6 +50,7 @@ class _MoviesState extends State<Movies> {
         actions: [
           if (_isFiltered)
             IconButton(
+              padding: EdgeInsets.zero,
                 onPressed: () {
                   setState(() {
                     _isFiltered = false;
@@ -60,7 +61,9 @@ class _MoviesState extends State<Movies> {
                 },
                 icon: const FaIcon(FontAwesomeIcons.filterCircleXmark)),
           IconButton(
+            padding: const EdgeInsets.only(bottom: 4),
               onPressed: () {
+
                 showDialog(
                     context: context,
                     builder: (context) => filterDialog(context));
@@ -103,20 +106,42 @@ class _MoviesState extends State<Movies> {
                 initialChildSize: 0.5,
                 initialValue: _chosenGenres,
                 decoration: const BoxDecoration(),
-                backgroundColor: const Color.fromARGB(255, 101, 101, 101),
+                // selectedColor: Theme.of(context).primaryColor.withOpacity(.5),
+                unselectedColor: const Color.fromARGB(255,96,96,96),
+                itemsTextStyle: const TextStyle(color: Colors.white),
+                cancelText: Text('Cancel'.toUpperCase(),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color: Colors.grey
+                ),),
+                confirmText: Text('OK'.toUpperCase(),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color: Colors.grey
+                ),),
+                backgroundColor: Colors.grey[900],
+                
                 separateSelectedItems: true,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
                 buttonText: Text("Choose Genres",
                     style: Theme.of(context).textTheme.bodyText1),
-                title: const Text("Genres"),
+                title: Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(20)),
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    "Genres",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
                 items: _genres.map((e) => MultiSelectItem(e, e)).toList(),
                 listType: MultiSelectListType.CHIP,
                 onConfirm: (values) {
                   _chosenGenres = values;
                 },
                 chipDisplay: MultiSelectChipDisplay(
+
                   // the displayed chips after selection
 
                   onTap: (value) {},

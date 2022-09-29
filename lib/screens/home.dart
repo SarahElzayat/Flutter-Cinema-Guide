@@ -20,6 +20,7 @@ class HomeScreen extends StatelessWidget {
               extendBody: true,
               body: cubit.bottomNavBarItems[cubit.currentIndex],
               bottomNavigationBar: GNav(
+
                   selectedIndex: cubit.currentIndex,
                   onTabChange: (index) {
                     cubit.changeIndex(index);
@@ -34,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                   gap: 8, // the tab button gap between icon and text
                   color: Colors.grey, // unselected icon color
                   activeColor: Colors.white, // selected icon and text color
-                  iconSize: 24, // tab button icon size
+                  iconSize: 28, // tab button icon size
                   tabBackgroundColor: Colors.black.withOpacity(.2),
                   //  Theme.of(context)
                   //     .primaryColor

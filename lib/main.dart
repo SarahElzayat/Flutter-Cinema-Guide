@@ -6,6 +6,7 @@ import 'package:material_color_generator/material_color_generator.dart';
 
 void main() {
   DioHelper.init();
+  
   runApp(const MyApp());
 }
 
@@ -26,7 +27,9 @@ class MyApp extends StatelessWidget {
             headline2: GoogleFonts.roboto(
                 color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17),
             headline3: GoogleFonts.roboto(
-                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 24),
+                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 24), 
+                      headline4: GoogleFonts.roboto(
+                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 18,letterSpacing: 2),
             bodyText1: GoogleFonts.roboto(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
             bodyText2: GoogleFonts.roboto(
