@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:cinema_app/screens/web_view_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../models/cinema/movie.dart';
 
@@ -58,7 +60,6 @@ class MoviesScreen extends StatelessWidget {
                     movie.movieTitle.toString(), //['movie_title'],
                     style: Theme.of(context).textTheme.headline3,
                   ),
-
                   Row(
                     textBaseline: TextBaseline.alphabetic,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -76,9 +77,6 @@ class MoviesScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  //TODO
-                  //add genres
-
                   const SizedBox(
                     height: 5,
                   ),
@@ -125,7 +123,6 @@ class MoviesScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-
                   Wrap(
                     spacing: 5,
                     runSpacing: 8,
@@ -154,10 +151,39 @@ class MoviesScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-
                   Text(
                     movie.movieDescription.toString(),
                     style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 18.0, left: 18, right: 18),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Spacer(),
+                        Expanded(
+                          child: MaterialButton(
+                            // minWidth: double.infinity,
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      WebViewScreen('https://elcinema.com'+movie.movieLinkId.toString()+'/'),
+                                )),
+
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(.7),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Text(
+                              "More Info",
+                              style: Theme.of(context).textTheme.headline2,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

@@ -23,6 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Search'),
       ),
@@ -34,12 +35,8 @@ class _SearchScreenState extends State<SearchScreen> {
               // margin: const EdgeInsets.all(10),
               padding: const EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 123, 33, 27),
-                borderRadius: _expanded
-                    ? const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))
-                    : BorderRadius.circular(10),
+                color: Theme.of(context).primaryColor.withOpacity(.7),
+                borderRadius:BorderRadius.circular(10),
               ),
               child: Row(
                 children: [
@@ -71,12 +68,13 @@ class _SearchScreenState extends State<SearchScreen> {
               condition: _chosenTitle.isNotEmpty,
               fallback: (context) {
                 return Expanded(
-                    child: Center(
-                        child: Text("Start Typing to Search",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline1!
-                                .copyWith(fontSize: 16))));
+                  child: Center(
+                      child: Icon(
+                        Icons.manage_search_rounded,
+                        size: 150,
+                        color: Colors.white70.withOpacity(.5),
+                      )),
+                );
               },
               builder: (context) => Expanded(
                 child: Padding(
@@ -125,7 +123,7 @@ class _SearchScreenState extends State<SearchScreen> {
       padding: const EdgeInsets.only(left: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color.fromARGB(255, 123, 33, 27),
+        color: Theme.of(context).primaryColor.withOpacity(.7)//const Color.fromARGB(255, 123, 33, 27),
       ),
       child: Row(
         children: [
