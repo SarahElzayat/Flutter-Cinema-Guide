@@ -18,26 +18,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.grey[900],
-        iconTheme: const IconThemeData(color: Colors.white, size: 27),
-        textTheme: TextTheme(
-          headline1: GoogleFonts.roboto(color: Colors.white, fontSize: 25),
-          //headline2 for movies names
-          headline2: GoogleFonts.roboto(
-              color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17),
-          headline3: GoogleFonts.roboto(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 24),
-          bodyText1: GoogleFonts.roboto(
-              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
-          bodyText2: GoogleFonts.roboto(
-              color: Colors.black,
-               fontWeight: FontWeight.w500,
-              fontSize: 16),
-        ),
-        primarySwatch: generateMaterialColor(
-          color: const Color.fromARGB(255, 113, 34, 28),
-        ),
-      ),
+          scaffoldBackgroundColor: Colors.grey[900],
+          iconTheme: const IconThemeData(color: Colors.white, size: 27),
+          textTheme: TextTheme(
+            headline1: GoogleFonts.roboto(color: Colors.white, fontSize: 25),
+            //headline2 for movies names
+            headline2: GoogleFonts.roboto(
+                color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17),
+            headline3: GoogleFonts.roboto(
+                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 24),
+            bodyText1: GoogleFonts.roboto(
+                color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
+            bodyText2: GoogleFonts.roboto(
+                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 16),
+          ),
+          primarySwatch: generateMaterialColor(
+            color: const Color.fromARGB(255, 113, 34, 28),
+          ),
+          splashColor: Colors.black54),
       home: const HomeScreen(),
     );
   }

@@ -36,7 +36,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           list!.add(Movie.fromJson(element));
         });
       });
-      print(list);
     });
   }
 
@@ -44,7 +43,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home'),
+          title: const Text('Home'),
         ),
         body: ConditionalBuilder(
           condition: movies_list != null,

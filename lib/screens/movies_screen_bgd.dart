@@ -2,7 +2,6 @@ import 'package:cinema_app/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet_field.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../constants/endpoints.dart';
 import '../dio_helper.dart';
@@ -20,10 +19,13 @@ class _MoviesState extends State<Movies> {
   List<String?> _chosenGenres = [];
   double _chosenRating = 7.0;
   final List<String> _genres = [];
-
+  List<Movie> _moviesList = [];
   @override
   void initState() {
     super.initState();
+    // copy content of the original List
+    _moviesList = [...widget.allMoviesList];
+
     DioHelper.getData(path: GENRES).then((value) {
       for (var element in value.data) {
         _genres.add(element as String);
@@ -56,86 +58,124 @@ class _MoviesState extends State<Movies> {
         ],
       ),
       body: ListView.builder(
+        itemCount: _moviesList.length,
         itemBuilder: (context, index) =>
-            SaraMovieCard(context, widget.allMoviesList[index]),
+            SaraMovieCard(context, _moviesList[index]),
       ),
     );
   }
 
   Dialog tailingContainer(BuildContext context) {
     return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
       clipBehavior: Clip.antiAlias,
       child: Container(
+        padding: const EdgeInsets.all(15),
         height: 300,
         decoration: const BoxDecoration(
           color: Color.fromARGB(255, 123, 33, 27),
         ),
-        child: Container(
-          margin: const EdgeInsets.only(top: 10, bottom: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).splashColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: MultiSelectBottomSheetField<String?>(
+                initialChildSize: 0.5,
+                backgroundColor: const Color.fromARGB(255, 101, 101, 101),
+                searchable: true,
+                buttonText: Text("Choose Genres",
+                    style: Theme.of(context).textTheme.bodyText1),
+                title: const Text("Genres"),
+                items: _genres.map((e) => MultiSelectItem(e, e)).toList(),
+                listType: MultiSelectListType.CHIP,
+                onConfirm: (values) {
+                  _chosenGenres = values;
+                },
+                chipDisplay: MultiSelectChipDisplay(
+                  // the displayed chips after selection
+                  onTap: (value) {},
                 ),
-                child: MultiSelectBottomSheetField<String?>(
-                  initialChildSize: 0.4,
-                  backgroundColor: const Color.fromARGB(255, 101, 101, 101),
-                  searchable: true,
-                  buttonText: Text("Choose Genres",
-                      style: Theme.of(context).textTheme.bodyText1),
-                  title: const Text("Genres"),
-                  items: _genres.map((e) => MultiSelectItem(e, e)).toList(),
-                  listType: MultiSelectListType.CHIP,
-                  onConfirm: (values) {
-                    _chosenGenres = values;
-                  },
-                  chipDisplay: MultiSelectChipDisplay(
-                    // the displayed chips after selection
-                    onTap: (value) {},
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text("  Min Rating", style: Theme.of(context).textTheme.bodyText1),
+            const SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: RatingBar.builder(
+                initialRating: _chosenRating,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 10,
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                itemSize: 25.0,
+                onRatingUpdate: (rating) {
+                  _chosenRating = rating;
+                },
+              ),
+            ),
+            const Spacer(),
+            Row(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).splashColor,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Cancel"),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text("  Min Rating",
-                  style: Theme.of(context).textTheme.bodyText1),
-              const SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: RatingBar.builder(
-                  initialRating: _chosenRating,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 10,
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  itemSize: 30.0,
-                  onRatingUpdate: (rating) {
-                    _chosenRating = rating;
-                  },
+                const Spacer(
+                  flex: 1,
                 ),
-              ),
-            ],
-          ),
+                Expanded(
+                  flex: 5,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).splashColor,
+                    ),
+                    onPressed: () {
+                      getMoviesResults(
+                              genres: _chosenGenres, rating: _chosenRating)
+                          .then((value) {
+                        setState(() {
+                          _moviesList = value;
+                        });
+                        Navigator.pop(context);
+                      });
+                    },
+                    child: const Text("Apply"),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 
   Future<List<Movie>> getMoviesResults(
-      {required String? title,
-      required List<String?>? genres,
-      required double? rating}) async {
+      {required List<String?>? genres, required double? rating}) async {
     List<Movie> movies = [];
-    Map<String, dynamic> q = {'movie_title': title, 'order': '-rating'};
+    Map<String, dynamic> q = {};
     if (genres != null) q['movie_genres'] = genres;
     if (rating != null) q['movie_rating'] = rating;
 
