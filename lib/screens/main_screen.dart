@@ -2,6 +2,7 @@ import 'package:cinema_app/components/components.dart';
 import 'package:cinema_app/constants/endpoints.dart';
 import 'package:cinema_app/dio_helper.dart';
 import 'package:cinema_app/models/cinema/cinema.dart';
+import 'package:cinema_app/screens/cinemas.dart';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +22,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   final int itemCount = 5;
   List<Movie>? list = [];
   List<Cinema>? cinemas = [];
-
-  // DioHelper.getData(path: CINEMAS).then((value) {
-  // setState(() {
-  //   _moviesList = value.data;
-  //   value.data!.forEach((element) {
-  //     cinemas!.add(Cinema.fromJson(element));
-  //   });
-  // });
 
   @override
   void initState() {
@@ -98,12 +91,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         itemExtent: 200,
                         itemBuilder: (context, index) {
                           if (index == itemCount - 1) {
-                            return showMore(context, list);
+                            return showMoreMovies(context, list);
                           }
                           return movieBuilder(context, list![index]);
                         }),
-                  ),      
-                   Padding(
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(left: 18, top: 18),
                     child: MaterialButton(
                       // padding: EdgeInsets.all(15),
@@ -113,7 +106,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Movies(allMoviesList: list!),
+                            builder: (context) => CinemasScreen(
+                              cinemas: cinemas,
+                            ),
                           )),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -124,22 +119,21 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                       SizedBox(
+                  SizedBox(
                     height: 200,
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemCount: itemCount,
+                        itemCount: cinemas!.length,
                         shrinkWrap: true,
                         // itemExtent: 200,
                         itemBuilder: (context, index) {
                           if (index == itemCount - 1) {
-                            return showMore(context, list);
+                            return showMoreCinemas(context, cinemas);
                           }
                           return cinemasBuilder(context, cinemas![index]);
                         }),
                   ),
-
                 ],
               ),
             ),

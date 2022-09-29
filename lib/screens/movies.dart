@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:cinema_app/screens/web_view_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 import '../models/cinema/movie.dart';
 
