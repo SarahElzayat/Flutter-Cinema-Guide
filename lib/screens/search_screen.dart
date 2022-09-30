@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cinema_app/constants/endpoints.dart';
 import 'package:cinema_app/dio_helper.dart';
 import 'package:cinema_app/models/cinema/movie.dart';
@@ -5,6 +7,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import '../models/cinema/cinema.dart';
 import '../widgets/movie_card.dart';
+import 'cinema_view.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -36,7 +39,7 @@ class _SearchScreenState extends State<SearchScreen> {
               padding: const EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor.withOpacity(.7),
-                borderRadius:BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 children: [
@@ -70,10 +73,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 return Expanded(
                   child: Center(
                       child: Icon(
-                        Icons.manage_search_rounded,
-                        size: 150,
-                        color: Colors.white70.withOpacity(.5),
-                      )),
+                    Icons.manage_search_rounded,
+                    size: 150,
+                    color: Colors.white70.withOpacity(.5),
+                  )),
                 );
               },
               builder: (context) => Expanded(
@@ -90,7 +93,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                             child: Column(children: [
                               ...List.generate(
-                                _cinemasResults!.length,
+                                min(4, _cinemasResults!.length),
                                 (index) => cinemaCard(
                                     _cinemasResults![index], context),
                               ),
@@ -118,35 +121,48 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget cinemaCard(Cinema c, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 5),
-      padding: const EdgeInsets.only(left: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).primaryColor.withOpacity(.7)//const Color.fromARGB(255, 123, 33, 27),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.movie_filter_outlined),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            child: Text(
-              c.cinemaName!,
-              style: Theme.of(context).textTheme.headline2,
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
+    return InkWell(
+      onTap: () {
+        // navigate to CinemaView
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CinemaView(
+                      cinema: c,
+                    )));
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 5),
+        padding: const EdgeInsets.only(left: 8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Theme.of(context)
+                .primaryColor
+                .withOpacity(.7) //const Color.fromARGB(255, 123, 33, 27),
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_forward_ios,
-              size: 20,
+        child: Row(
+          children: [
+            const Icon(Icons.movie_filter_outlined),
+            const SizedBox(
+              width: 10,
             ),
-          ),
-        ],
+            Expanded(
+              child: Text(
+                c.cinemaName!,
+                style: Theme.of(context).textTheme.headline2,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                size: 20,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
