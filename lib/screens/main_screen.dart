@@ -5,6 +5,7 @@ import 'package:cinema_app/constants/endpoints.dart';
 import 'package:cinema_app/cubit/app_cubit.dart';
 import 'package:cinema_app/dio_helper.dart';
 import 'package:cinema_app/models/cinema/cinema.dart';
+import 'package:cinema_app/screens/cinemas.dart';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -62,18 +63,18 @@ class MainScreen extends StatelessWidget {
                       SizedBox(
                         height: 300,
                         child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: min(itemCount, moviesList.length),
-                            shrinkWrap: true,
-                            itemExtent: 200,
-                            itemBuilder: (context, index) {
-                              if (index == itemCount - 1) {
-                                return showMore(context, moviesList);
-                              }
-                              return moviescrollCard(
-                                  context, moviesList[index]);
-                            }),
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: min(itemCount, moviesList.length),
+                          shrinkWrap: true,
+                          itemExtent: 200,
+                          itemBuilder: (context, index) {
+                            if (index == itemCount - 1) {
+                              return showMoreMovies(context, moviesList);
+                            }
+                            return moviescrollCard(context, moviesList[index]);
+                          },
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 18, top: 18),
@@ -85,8 +86,9 @@ class MainScreen extends StatelessWidget {
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    Movies(allMoviesList: moviesList),
+                                builder: (context) => CinemasScreen(
+                                  cinemas: cinemasList,
+                                ),
                               )),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -102,14 +104,14 @@ class MainScreen extends StatelessWidget {
                         child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
-                            itemCount: min(itemCount, cinemasList.length),
+                            itemCount: min(cinemasList.length, itemCount),
                             shrinkWrap: true,
                             // itemExtent: 200,
                             itemBuilder: (context, index) {
                               if (index == itemCount - 1) {
-                                return showMore(context, moviesList);
+                                return showMoreCinemas(context, cinemasList);
                               }
-                              return cinemaScrollCard(
+                              return cinemasBuilder(
                                   context, cinemasList[index]);
                             }),
                       ),

@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:cinema_app/screens/cinema_view.dart';
+import 'package:cinema_app/screens/cinemas.dart';
 import 'package:cinema_app/screens/movies.dart';
 import 'package:cinema_app/screens/movies_screen_bgd.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +83,7 @@ Widget moviescrollCard(context, Movie item) => InkWell(
       ),
     );
 
-Widget showMore(context, list) => InkWell(
+Widget showMoreMovies(context, list) => InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -189,28 +191,83 @@ Widget saraMovieCard(context, Movie item) => InkWell(
       ),
     );
 
-Widget cinemaScrollCard(context, Cinema item) => InkWell(
-      onTap: () {},
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: Theme.of(context).primaryColor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 100,
-                width: 100,
-                child: Placeholder(),
-              ),
-              Center(
-                child: Text(
-                  item.cinemaName.toString(),
-                  style: Theme.of(context).textTheme.headline4,
+Widget cinemasBuilder(context, Cinema item) => InkWell(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CinemaView(cinema: item),
+          )),
+      child: Hero(
+        tag: item.cinemaImage.toString(),
+        child: Container(
+          margin: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(topLeft:Radius.circular(20),topRight: Radius.circular(20)),
+            image: DecorationImage(
+                image: NetworkImage(
+                  item.cinemaImage.toString(),
+                  // ['movie_image'],
                 ),
-              ),
+                fit: BoxFit.cover),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ClipRect(
+                  child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 2),
+                child: Container(
+                    height: 30.0,
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black,
+                          ],
+                        ),
+                        color: Colors.black.withOpacity(.8)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Center(
+                        child: Text(item.cinemaName.toString(),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headline2),
+                      ),
+                    )),
+              )),
             ],
           ),
+        ),
+      ),
+    );
+Widget showMoreCinemas(context, list) => InkWell(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CinemasScreen(cinemas: list),
+          )),
+      child: Card(
+        color: Theme.of(context).primaryColor.withOpacity(.5),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'View more',
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Icon(
+                  Icons.arrow_circle_right_outlined,
+                ),
+              )
+            ],
+          )),
         ),
       ),
     );
