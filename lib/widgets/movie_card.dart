@@ -62,7 +62,7 @@ Widget movieCard(BuildContext context, Movie movieObj) {
                           ),
                     ),
                   ),
-                  Spacer(
+                  const Spacer(
                     flex: 2,
                   )
                 ],

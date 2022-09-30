@@ -1,10 +1,8 @@
-import 'package:bloc/bloc.dart';
-import 'package:cinema_app/screens/main_screen.dart';
-import 'package:cinema_app/screens/movies.dart';
-import 'package:cinema_app/screens/cinemas.dart';
-import 'package:cinema_app/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:cinema_app/screens/main_screen.dart';
+import 'package:cinema_app/screens/search_screen.dart';
 
 import '../constants/endpoints.dart';
 import '../dio_helper.dart';
