@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cinema_app/cubit/app_cubit.dart';
 import 'package:cinema_app/screens/web_view_screen.dart';
 import 'package:flutter/material.dart';
 import '../models/cinema/movie.dart';
@@ -97,7 +98,10 @@ class MoviesScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(5),
                             onPressed: () {},
                             child: Text(
-                              movie.cinema![index].toString(),
+                              AppCubit.get(context)
+                                  .cinemasMap[movie.cinema![index]]!
+                                  .cinemaName!,
+
                               // maxLines: 2,
                               // overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
@@ -166,9 +170,7 @@ class MoviesScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => WebViewScreen(
-                                      'https://elcinema.com' +
-                                          movie.movieLinkId.toString() +
-                                          '/'),
+                                      'https://elcinema.com${movie.movieLinkId}/'),
                                 )),
 
                             color:
