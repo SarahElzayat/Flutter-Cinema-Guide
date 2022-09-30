@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:cinema_app/constants/endpoints.dart';
-import 'package:cinema_app/dio_helper.dart';
+import 'package:cinema_app/helpers/dio_helper.dart';
 import 'package:cinema_app/models/cinema/movie.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../constants/endpoints.dart';
-import '../dio_helper.dart';
+import '../helpers/dio_helper.dart';
 import '../models/cinema/movie.dart';
 
 class Movies extends StatefulWidget {

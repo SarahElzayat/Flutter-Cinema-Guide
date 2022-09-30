@@ -5,7 +5,7 @@ import 'package:cinema_app/screens/main_screen.dart';
 import 'package:cinema_app/screens/search_screen.dart';
 
 import '../constants/endpoints.dart';
-import '../dio_helper.dart';
+import '../helpers/dio_helper.dart';
 import '../models/cinema/cinema.dart';
 import '../models/cinema/movie.dart';
 

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import 'constants/endpoints.dart';
+import '../constants/endpoints.dart';
 
 class DioHelper {
   static late Dio dio;
