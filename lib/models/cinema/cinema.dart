@@ -1,12 +1,10 @@
-import 'movie.dart';
-
 class Cinema {
   int? id;
   String? cinemaName;
   String? cinemaLink;
   String? cinemaAddress;
   String? cinemaImage;
-  List<Movie>? movies;
+  List<int>? movies;
 
   Cinema(
       {this.id,
@@ -22,16 +20,14 @@ class Cinema {
         cinemaLink: json['cinema_link'] as String?,
         cinemaAddress: json['cinema_address'] as String?,
         cinemaImage: json['cinema_image'] as String?,
-        movies: (json['movies'] as List<dynamic>?)
-            ?.map((e) => Movie.fromJson(e as Map<String, dynamic>))
-            .toList(),
+        movies: (json['movies'].cast<int>() as List<int>?),
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'cinema_name': cinemaName,
         'cinema_link': cinemaLink,
-        'movies': movies?.map((e) => e.toJson()).toList(),
+        'movies': movies,
         'cinema_image': cinemaImage,
         'cinema_address': cinemaAddress,
       };

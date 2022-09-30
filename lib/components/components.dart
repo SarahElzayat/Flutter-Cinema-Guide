@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import '../models/cinema/cinema.dart';
 import '../models/cinema/movie.dart';
 
-Widget movieBuilder(context, Movie item) => InkWell(
+Widget moviescrollCard(context, Movie item) => InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -189,7 +189,7 @@ Widget saraMovieCard(context, Movie item) => InkWell(
       ),
     );
 
-Widget cinemasBuilder(context, Cinema item) => InkWell(
+Widget cinemaScrollCard(context, Cinema item) => InkWell(
       onTap: () {},
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

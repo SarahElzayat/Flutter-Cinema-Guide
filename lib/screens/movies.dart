@@ -1,9 +1,6 @@
 import 'dart:ui';
-
 import 'package:cinema_app/screens/web_view_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-
 import '../models/cinema/movie.dart';
 
 class MoviesScreen extends StatelessWidget {
@@ -100,7 +97,7 @@ class MoviesScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(5),
                             onPressed: () {},
                             child: Text(
-                              movie.cinema![index].cinemaName.toString(),
+                              movie.cinema![index].toString(),
                               // maxLines: 2,
                               // overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
@@ -168,8 +165,10 @@ class MoviesScreen extends StatelessWidget {
                             onPressed: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      WebViewScreen('https://elcinema.com'+movie.movieLinkId.toString()+'/'),
+                                  builder: (context) => WebViewScreen(
+                                      'https://elcinema.com' +
+                                          movie.movieLinkId.toString() +
+                                          '/'),
                                 )),
 
                             color:
