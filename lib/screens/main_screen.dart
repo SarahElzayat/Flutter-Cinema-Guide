@@ -1,16 +1,11 @@
 import 'dart:math';
-
 import 'package:cinema_app/components/components.dart';
-import 'package:cinema_app/constants/endpoints.dart';
 import 'package:cinema_app/cubit/app_cubit.dart';
-import 'package:cinema_app/dio_helper.dart';
 import 'package:cinema_app/models/cinema/cinema.dart';
 import 'package:cinema_app/screens/cinemas.dart';
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../models/cinema/movie.dart';
 import 'movies_screen_bgd.dart';
 
@@ -28,7 +23,6 @@ class MainScreen extends StatelessWidget {
           builder: (context, state) {
             List<Movie> moviesList = AppCubit.get(context).moviesList;
             List<Cinema> cinemasList = AppCubit.get(context).cinemasList;
-            var cinemaMap = AppCubit.get(context).cinemasMap;
             return ConditionalBuilder(
               condition: moviesList.isNotEmpty,
               fallback: (context) =>
