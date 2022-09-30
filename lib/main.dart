@@ -8,6 +8,7 @@ import 'package:material_color_generator/material_color_generator.dart';
 import 'bloc_observer.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
@@ -15,8 +16,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-
 
   // This widget is the root of your application.
   @override
