@@ -14,3 +14,7 @@ class getMoviesDataErrorState extends AppState {}
 class getCinemasDataSuccessState extends AppState {}
 
 class getCinemasDataErrorState extends AppState {}
+
+class getFavoritesDataSuccessState extends AppState {}
+
+class getFavoritesDataErrorState extends AppState {}
