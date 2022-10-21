@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
         final cubit = AppCubit.get(context);
 
         return Scaffold(
+
             extendBody: true,
             body: cubit.bottomNavBarItems[cubit.currentIndex],
             bottomNavigationBar: GNav(

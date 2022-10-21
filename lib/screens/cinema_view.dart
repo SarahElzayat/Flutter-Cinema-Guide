@@ -1,20 +1,41 @@
 import 'dart:ui';
 
+import 'package:cinema_app/cubit/app_cubit.dart';
+import 'package:cinema_app/models/cinema/movie.dart';
+import 'package:cinema_app/screens/cinemas.dart';
+import 'package:cinema_app/screens/movies.dart';
 import 'package:cinema_app/screens/web_view_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../models/cinema/cinema.dart';
+import 'movies_screen_bgd.dart';
 
-class CinemaView extends StatelessWidget {
+class CinemaView extends StatefulWidget {
   const CinemaView({super.key, required this.cinema});
   final Cinema cinema;
- 
+
+  @override
+  State<CinemaView> createState() => _CinemaViewState();
+}
+
+class _CinemaViewState extends State<CinemaView> {
+  final List<Movie> _movies = [];
+
+  @override
+  void initState() {
+    super.initState();
+    for (var element in widget.cinema.movies!) {
+      _movies.add(AppCubit.get(context).moviesMap[element]!);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage(cinema.cinemaImage.toString()), fit: BoxFit.fill),
+            image: NetworkImage(widget.cinema.cinemaImage.toString()),
+            fit: BoxFit.fill),
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
@@ -41,14 +62,15 @@ class CinemaView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 // mainAxisSize: MainAxisSize.max,
+
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Center(
                       child: Hero(
-                    tag: cinema.cinemaLink.toString(),
+                    tag: widget.cinema.cinemaLink.toString(),
                     child: Image.network(
-                      cinema.cinemaImage!, //['movie_image'],
+                      widget.cinema.cinemaImage!, //['movie_image'],
                       scale: .6,
                     ),
                   )),
@@ -56,39 +78,52 @@ class CinemaView extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    cinema.cinemaName.toString(), //['movie_title'],
+                    widget.cinema.cinemaName.toString(),
                     style: Theme.of(context).textTheme.headline3,
                   ),
-                 
-                  // const SizedBox(
-                  //   height: 5,
-                  // ),
-                 
-                  // const SizedBox(
-                  //   height: 10,
-                  // ),
-
                   const SizedBox(
                     height: 10,
                   ),
-      
+                  Text(
+                    "Address : ${widget.cinema.cinemaAddress.toString()}",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 18.0, left: 18, right: 18),
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        // Spacer(),
                         Expanded(
                           child: MaterialButton(
-                            // minWidth: double.infinity,
+                            onPressed: () => Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Movies(
+                                  allMoviesList: _movies,
+                                ),
+                              ),
+                            ),
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(.7),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Text(
+                              "Movies",
+                              style: Theme.of(context).textTheme.headline2,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: MaterialButton(
                             onPressed: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      WebViewScreen(cinema.cinemaLink.toString()+'/'),
+                                  builder: (context) => WebViewScreen(
+                                      '${widget.cinema.cinemaLink}/'),
                                 )),
-
                             color:
                                 Theme.of(context).primaryColor.withOpacity(.7),
                             shape: RoundedRectangleBorder(

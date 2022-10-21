@@ -18,3 +18,16 @@ class getCinemasDataErrorState extends AppState {}
 class getFavoritesDataSuccessState extends AppState {}
 
 class getFavoritesDataErrorState extends AppState {}
+
+
+class AppCreateDatabaseState extends AppState {}
+
+
+
+class AppInsertIntoDataState extends AppState {}
+
+class AppLoadingState extends AppState {}
+
+class AppGetDatabaseState extends AppState {}
+
+class AppDeleteDatabaseState extends AppState {}
