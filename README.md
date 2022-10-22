@@ -23,7 +23,7 @@ flutter pub get
  flutter run lib/main.dart
 ```
 
-## Screenshots 
+#### Screenshots 
 
 The application is provided with a cool splash screen, a custom name and icon.
 
@@ -36,7 +36,7 @@ You can access both cinemas and movies from the home screen, with smooth transit
 
 <img align="left" width =150px  src="https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/screenshots/movies_from_home.gif">
 
-
+<!-- 
 ## Authors
 
 Contributors names and contact info
@@ -46,4 +46,4 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE.md file for details -->
