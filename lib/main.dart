@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           return MaterialApp(
-            title: "Cinema",
+            title: "Cinema Guide",
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 scaffoldBackgroundColor: Colors.grey[900],

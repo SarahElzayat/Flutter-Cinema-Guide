@@ -190,6 +190,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.1.1"
+  flutter_clean_architecture:
+    dependency: "direct main"
+    description:
+      name: flutter_clean_architecture
+      sha256: "52c6b6dc8a74a92e12192000ce2e1daa59354a5aac6e5a14f608c31c2c7ab73a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.3"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -323,6 +331,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: c0bbfe94d46aedf9b8b3e695cf3bd48c8e14b35e3b2c639e0aa7755d589ba946
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   matcher:
     dependency: transitive
     description:
@@ -483,6 +499,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.4"
+  responsive_builder:
+    dependency: transitive
+    description:
+      name: responsive_builder
+      sha256: f01bc341c73b6db7bd6319e22d2c160f28f924399ae46e6699ecc8160ba2765c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.3"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      sha256: "2ef8b4e91cb3b55d155e0e34eeae0ac7107974e451495c955ac04ddee8cc21fd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.26.0"
   sky_engine:
     dependency: transitive
     description: flutter

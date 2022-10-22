@@ -95,7 +95,7 @@ class _CinemaViewState extends State<CinemaView> {
                       children: [
                         Expanded(
                           child: MaterialButton(
-                            onPressed: () => Navigator.pushReplacement(
+                            onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => Movies(
