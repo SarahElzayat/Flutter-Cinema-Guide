@@ -11,7 +11,8 @@ Cinema guide is developed using Dart and Flutter, with local Django api.
 An SQLite database is used to store your watchlist. BLoC state management is used.<br>
 
 ## Acknowledgment
-The backend of this application is implemented by the sweetest @Ahmed-ata112 ❤️<br>
+The backend of this application is implemented by the sweetest <a href="https://github.com/Ahmed-ata112/">Ahmed Atta</a>
+❤️<br>
 
 <a href="https://github.com/Ahmed-ata112/cinema-app">Check the backend</a>
 
