@@ -17,13 +17,13 @@ flutter pub get
 ```
 
 
-### Executing program
+## Executing program
 
 ```
  flutter run lib/main.dart
 ```
 
-#### Screenshots 
+## Screenshots 
 <div >
 The application is provided with a cool splash screen, a custom name and icon.
 
