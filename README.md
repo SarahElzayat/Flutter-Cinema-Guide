@@ -27,6 +27,9 @@ flutter pub get
 <div >
 -The application is provided with a cool splash screen, a custom name and icon.
 <br>
+</div>
+
+<div>
 <img align="left" width =150px  src="https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/screenshots/launcher_icon_and_splash_screen.gif">
 <br>
 </div>
