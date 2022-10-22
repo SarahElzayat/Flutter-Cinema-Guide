@@ -10,6 +10,11 @@ Cinema guide is a mobile application that allows you to explore currently showin
 Cinema guide is developed using Dart and Flutter, with local Django api.
 An SQLite database is used to store your watchlist. BLoC state management is used.<br>
 
+## Acknowledgment
+The backend of this application is implemented by the sweetest @Ahmed-ata112 ❤️<br>
+
+<a href="https://github.com/Ahmed-ata112/cinema-app">Check the backend</a>
+
 ## Getting Started
 
 To download used packages
