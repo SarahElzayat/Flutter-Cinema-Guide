@@ -63,10 +63,13 @@ You can access both cinemas and movies from the home screen, with smooth transit
   <tr>
     <td align="center"><a href="https://github.com/Ahmed-ata112"><img src="https://avatars.githubusercontent.com/u/72627749?v=4" width="100px;" alt=""/><br /><sub><b>Ahmed Ata</b></sub></a><br />
     </td><td align="center"><a href="https://github.com/SarahElzayat"><img src="https://avatars.githubusercontent.com/u/76779284?v=4" width="100px;" alt=""/><br /><sub><b>Sarah Elzayat</b></sub></a><br />
-   
     </td>
     </tr>
   </table>
+
+
+
+
 
 ## License
 
