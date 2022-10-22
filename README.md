@@ -26,7 +26,10 @@ flutter pub get
 ## Screenshots 
 
 The application is provided with a cool splash screen, a custom name and icon.
-![alt text](https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/screenshots/launcher_icon_and_splash_screen.gif)
+
+<!-- <img align="center"  src="https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/assets/images/splash_logo.gif"> -->
+
+![alt text](https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/screenshots/launcher_icon_and_splash_screen.gif?raw=true)
 
 You can access both cinemas and movies from the home screen, with smooth transitions.
 
