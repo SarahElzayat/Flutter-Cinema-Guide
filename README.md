@@ -1,9 +1,9 @@
 
 
 # Cinema Guide
-<p align="center">
+<!-- <p align="center"> -->
 ![alt_text](https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/assets/images/splash_logo.gif?raw=true)
-</p>
+<!-- </p> -->
 Cinema guide is a flutter-baser mobile application that allows you to explore currently showing movies and cinemas, search for your favorite movie or cinema and add movies to your watchlist!
 ## Description
 
