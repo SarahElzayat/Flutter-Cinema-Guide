@@ -66,7 +66,7 @@ You can access both cinemas and movies from the home screen, with smooth transit
     <img src="https://avatars.githubusercontent.com/u/72627749?v=4 width="150px;" alt="Ahmed Atta"/>
     <br />
     <sub><b>Ahmed Atta</b></sub></a>
-    <td align="center">
+    <!-- <td align="center"> -->
     <a href="https://github.com/sarahelzayat" target="_black">
     <img src="https://avatars.githubusercontent.com/u/76779284?v=4" width="150px;" alt="Sarah Elzayat"/>
     <br />
