@@ -10,25 +10,22 @@ class CinemasScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: const [
-              Text('Cinemas'),
-              SizedBox(
-                width: 5,
-              ),
-              Icon(
-                Icons.theater_comedy_rounded,
-                size: 27,
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Row(
+              children: const [
+                Text('Cinemas'),
+              ],
+            ),
+          ],
         ),
-        body: ListView.builder(
-            itemCount: cinemas!.length,
-            itemExtent: 200,
-            itemBuilder: (context, index) =>
-                cinemasBuilder(context, cinemas![index])),
+      ),
+      body: ListView.builder(
+          itemCount: cinemas!.length,
+          itemExtent: 200,
+          itemBuilder: (context, index) =>
+              cinemasBuilder(context, cinemas![index])),
     );
   }
 }

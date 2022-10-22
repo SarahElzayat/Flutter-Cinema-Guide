@@ -54,6 +54,7 @@ class MainScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      
                       SizedBox(
                         height: 300,
                         child: ListView.builder(

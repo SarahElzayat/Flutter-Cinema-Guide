@@ -28,13 +28,15 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           return MaterialApp(
+            title: "Cinema",
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
                 scaffoldBackgroundColor: Colors.grey[900],
                 iconTheme: const IconThemeData(color: Colors.white, size: 27),
                 textTheme: TextTheme(
                   headline1:
-                      GoogleFonts.roboto(color: Colors.white, fontSize: 25),
+                      GoogleFonts.roboto(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w500),
+                      
                   //headline2 for movies names
                   headline2: GoogleFonts.roboto(
                       color: Colors.white,
@@ -65,7 +67,7 @@ class MyApp extends StatelessWidget {
                 splashColor: Colors.black54),
             home:  AnimatedSplashScreen(
                 splash: const SplashScreen(),
-                nextScreen: const MainScreen(),
+                nextScreen: const HomeScreen(),
                 duration: 2500,
                 splashTransition: SplashTransition.sizeTransition,
                 // animationDuration: Duration(seconds: 1),
