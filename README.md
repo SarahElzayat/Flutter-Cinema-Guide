@@ -37,9 +37,6 @@ You can access both cinemas and movies from the home screen, with smooth transit
 <img align="left" width =150px  src="https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/screenshots/movies_from_home.gif">
 
 
-
-
-
 ## Authors
 
 Contributors names and contact info
