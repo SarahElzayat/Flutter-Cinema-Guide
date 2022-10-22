@@ -1,8 +1,9 @@
 
-
+<div align=center >
 # Cinema Guide
 <!-- <p align="center"> -->
 <img align="center"  src="https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/assets/images/splash_logo.gif">
+   </div>
 <!-- </p> -->
 Cinema guide is a flutter-baser mobile application that allows you to explore currently showing movies and cinemas, search for your favorite movie or cinema and add movies to your watchlist!
 ## Description
