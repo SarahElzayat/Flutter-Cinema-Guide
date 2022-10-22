@@ -61,19 +61,13 @@ You can access both cinemas and movies from the home screen, with smooth transit
 
 <table>
   <tr>
-      <td align="center">
-    <a href="https://github.com/Ahmed-ata112" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/72627749?v=4 width="150px;" alt="Ahmed Atta"/>
-    <br />
-    <sub><b>Ahmed Atta</b></sub></a>
-    <!-- <td align="center"> -->
-    <a href="https://github.com/sarahelzayat" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/76779284?v=4" width="150px;" alt="Sarah Elzayat"/>
-    <br />
-    <sub><b>Sarah Elzayat</b></sub></a>
-    
-  </tr>
- </table>
+    <td align="center"><a href="https://github.com/Ahmed-ata112"><img src="https://avatars.githubusercontent.com/u/72627749?v=4" width="100px;" alt=""/><br /><sub><b>Ahmed Ata</b></sub></a><br />
+    </td><td align="center"><a href="https://github.com/SarahElzayat"><img src="https://avatars.githubusercontent.com/u/76779284?v=4" width="100px;" alt=""/><br /><sub><b>Sarah Elzayat</b></sub></a><br />
+   
+    </td>
+    </tr>
+  </table>
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
