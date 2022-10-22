@@ -1,41 +1,29 @@
 
-<div align=center >
 # Cinema Guide
-<!-- <p align="center"> -->
+
+<div align=center >
 <img align="center"  src="https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/assets/images/splash_logo.gif">
    </div>
-<!-- </p> -->
-Cinema guide is a flutter-baser mobile application that allows you to explore currently showing movies and cinemas, search for your favorite movie or cinema and add movies to your watchlist!
-## Description
+Cinema guide is a mobile application that allows you to explore currently showing movies and cinemas, search for your favorite movie or cinema and add movies to your watchlist!
 
-An in-depth paragraph about your project and overview of use.
+## Description
+Cinema guide is developed using Dart and Flutter, with local Django api.
 
 ## Getting Started
 
-### Dependencies
+To download used packages
+```
+flutter pub get
+```
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
 ```
-code blocks for commands
+ flutter run lib/main.dart
 ```
 
-## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
 
 ## Authors
 
@@ -54,7 +42,7 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
