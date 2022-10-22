@@ -1,6 +1,9 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:cinema_app/cubit/app_cubit.dart';
 import 'package:cinema_app/helpers/dio_helper.dart';
 import 'package:cinema_app/screens/home.dart';
+import 'package:cinema_app/screens/main_screen.dart';
+import 'package:cinema_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,8 +61,18 @@ class MyApp extends StatelessWidget {
                 primarySwatch: generateMaterialColor(
                   color: const Color.fromARGB(255, 113, 34, 28),
                 ),
+               
                 splashColor: Colors.black54),
-            home: const HomeScreen(),
+            home:  AnimatedSplashScreen(
+                splash: const SplashScreen(),
+                nextScreen: const MainScreen(),
+                duration: 2500,
+                splashTransition: SplashTransition.sizeTransition,
+                // animationDuration: Duration(seconds: 1),
+                // backgroundColor: const Color.fromARGB(255, 113, 34, 28),
+                backgroundColor: Colors.grey[900]!,
+                splashIconSize:250,
+              ),
           );
         },
       ),
