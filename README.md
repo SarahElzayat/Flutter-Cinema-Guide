@@ -53,7 +53,7 @@ You can also filter the results to match your taste and expectations.<br>
 
 Searching. <br>
 
-<img  width =200px  src="https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/screenshots/searching.gif">
+<img  width =200px  src="https://github.com/SarahElzayat/Flutter-Cinema-Guide/blob/master/screenshots/search.gif">
 
 You can access both cinemas and movies from the home screen, with smooth transitions.
 <br>
